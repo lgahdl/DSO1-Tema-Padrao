@@ -1,10 +1,16 @@
-from ..controller import Gerenal_Controller
+# Models
 from ..model import User
 
+# Views
+from ..screen.User_Screen import UserScreen
 
-class UserController(Gerenal_Controller):
+# Controllers
+from ..controller.General_Controller import GeneralController
 
-    def __init__(self, user_screen: User_Screen):
+
+class UserController(GeneralController):
+
+    def __init__(self, user_screen: UserScreen):
         self.__user_screen = user_screen
 
     def add_user(self):

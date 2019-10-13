@@ -5,7 +5,7 @@ from ..model.Car import Car
 from ..screen.Car_Screen import CarScreen
 
 # Controllers
-from ..controller.Gerenal_Controller import GeneralController
+from ..controller.General_Controller import GeneralController
 
 
 class CarController(GeneralController):

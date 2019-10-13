@@ -1,8 +1,12 @@
-from ..model import General_Model
+# Utils
 from datetime import date as Date
 
+# Models
+from ..model.General_Model import GeneralModel
+from ..model.Car import Car
 
-class User(General_Model):
+
+class User(GeneralModel):
 
     def __init__(self, \
                  id_user: int, \
@@ -17,6 +21,12 @@ class User(General_Model):
         self.__user_role = user_role
         self.__user_phone = user_phone
         self.__cars = cars
+
+    """
+    |--------------|
+    |   GETTERS    |
+    |--------------|
+    """
 
     @property
     def id(self):
@@ -41,6 +51,12 @@ class User(General_Model):
     @property
     def cars(self):
         return self.__cars
+
+    """
+    |--------------|
+    |   SETTERS    |
+    |--------------|
+    """
 
     @id.setter
     def id(self, id_user: int):
