@@ -11,6 +11,7 @@ class MainScreen(GeneralScreen):
         super.__init__()
         self.__general_controller = general_controller
 
+    @staticmethod
     def open(self):
         id_user = raw_input('Olá, por favor, digite sua Matrícula')
         user_phone = raw_input('Agora digite seu número de Telefone')
