@@ -1,12 +1,12 @@
 # Models
-from ..model import User
+from api.model import User
 
 # Views
-from ..screen.User_Screen import UserScreen
-from ..screen.Main_Screen import MainScreen
+from api.screen.User_Screen import UserScreen
+from api.screen.Main_Screen import MainScreen
 
 # Controllers
-from ..controller.General_Controller import GeneralController
+from api.controller.General_Controller import GeneralController
 
 
 class UserController(GeneralController):
