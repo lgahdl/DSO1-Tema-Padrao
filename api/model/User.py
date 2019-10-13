@@ -91,7 +91,7 @@ class User(GeneralModel):
         self.__cars = cars
 
     def check_car_permission(self, car: Car):
-        if self.__user_role == self.permission_role[0]:
+        if self.__user_role == self.permission_role[3]:
             return True
         else:
             tier = car.car_tier
