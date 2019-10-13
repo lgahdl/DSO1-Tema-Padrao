@@ -10,7 +10,8 @@ from ..controller.General_Controller import GeneralController
 
 class UserController(GeneralController):
 
-    def __init__(self, user_screen: UserScreen):
+    def __init__(self, users: [User], user_screen: UserScreen):
+        self.__users = users
         self.__user_screen = user_screen
 
     def add_user(self):
@@ -27,3 +28,8 @@ class UserController(GeneralController):
 
     def open_main_screen(self):
         pass
+
+    def get_user_by_id(self, id_user):
+        for user in self.__users:
+            if user.id == id_user:
+                return user
