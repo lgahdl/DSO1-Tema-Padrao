@@ -1,21 +1,26 @@
-from ..screen import General_Screen
-from ..controller import User_Controller
+# Models
 from ..model import User
 
+# Views
+from ..screen.General_Screen import GeneralScreen
 
-class UserScreen(General_Screen):
+# Controllers
+from ..controller.User_Controller import UserController
 
-    def __init__(self, user_controller: User_Controller):
+
+class UserScreen(GeneralScreen):
+
+    def __init__(self, user_controller: UserController):
         self.user_controller = user_controller
 
-    def add_user(self):
+    def add(self):
         return self.__user_controller.add_user()
 
-    def delete_user(self, user: User):
+    def delete(self, user: User):
         return self.__user_controller.delete_user(user)
 
-    def edit_user(self, user: User):
+    def edit(self, user: User):
         return self.__user_controller.edit_user(User.id())
 
     def open_main_screen(self):
-        return General_Screen()
+        return GeneralScreen()
