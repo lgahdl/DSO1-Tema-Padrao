@@ -3,6 +3,7 @@ from ..model.Car import Car
 
 # Views
 from ..screen.Car_Screen import CarScreen
+from ..screen.Main_Screen import MainScreen
 
 # Controllers
 from ..controller.General_Controller import GeneralController
@@ -43,16 +44,28 @@ class CarController(GeneralController):
         self.__car_screen = car_screen
 
     def add_car(self, car: Car):
-        pass
+        cars = self.__cars
+        for controllerCar in cars:
+            if controllerCar.id != car.id and \
+                    controllerCar.car_plate != car.car_plate:
+                self.__cars.append(car)
 
-    def delete_car(self, car: Car):
-        pass
+    def delete_car(self, id_car: int):
+        cars = self.__cars
+        for controllerCar in cars:
+            if controllerCar.id == id_car:
+                self.__cars.remove(controllerCar)
 
     def edit_car(self, car: Car, id_car: int):
-        pass
+        cars = self.__cars
+        for controllerCar in cars:
+            if controllerCar.id == id_car:
+                index = cars.index(controllerCar)
+                self.__cars[index] = car
 
     def open_car_screen(self):
         self.__car_screen.open()
 
-    def open_main_screen(self):
-        pass
+    @staticmethod
+    def open_main_screen():
+        MainScreen.open()
