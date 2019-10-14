@@ -8,6 +8,8 @@ from api.data import data
 
 class MainController(GeneralController):
 
+    id_user_logged = 0
+
     def __init__(self):
         super().__init__()
         self.__user = None

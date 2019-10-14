@@ -12,10 +12,6 @@ class GeneralController(ABC):
         pass
 
     @abstractmethod
-    def destroy_screen(self):
-        pass
-
-    @abstractmethod
     def open_main_screen(self):
         pass
 

@@ -87,7 +87,6 @@ class UserController(GeneralController):
         self.__user_screen.open()
 
     def open_main_screen(self):
-        self.destroy_screen()
         self.__main_controller.open_main_screen()
 
     def get_user_by_id(self, id_user):
