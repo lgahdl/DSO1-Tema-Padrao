@@ -18,3 +18,7 @@ class GeneralModel(ABC):
     @abstractmethod
     def id(self, id_model: int) -> int:
         pass
+
+    @abstractmethod
+    def to_array(self):
+        pass
