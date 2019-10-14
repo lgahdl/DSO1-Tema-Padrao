@@ -26,7 +26,7 @@ class RequestScreen(GeneralScreen):
         print(" | Listar as Requisicoes [4]  | ".center(60))
         print(" | Voltar Para o Menu[5] | ".center(60))
         while True:
-            option = input("Digite o numero que corresponde ao que voce deseja fazer:".center(60))
+            option = int(input("Digite o numero que corresponde ao que voce deseja fazer:".center(60)))
             if(option == 1):
                 self.open_add_menu()
             elif(option == 2):
