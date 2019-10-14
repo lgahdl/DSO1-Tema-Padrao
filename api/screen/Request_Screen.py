@@ -1,8 +1,8 @@
 # Views
-from ..screen.General_Screen import GeneralScreen
+from api.screen.General_Screen import GeneralScreen
 
 # Models
-from ..controller.Request_Controller import RequestController
+from api.controller.Request_Controller import RequestController
 
 
 class RequestScreen(GeneralScreen):

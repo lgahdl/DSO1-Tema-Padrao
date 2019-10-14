@@ -1,8 +1,9 @@
-from ..screen.Main_Screen import MainScreen
-from ..controller.User_Controller import UserController
-from ..controller.Request_Controller import RequestController
-from ..controller.Car_Controller import CarController
-from ..controller.General_Controller import GeneralController
+from api.screen.Main_Screen import MainScreen
+from api.controller.User_Controller import UserController
+from api.controller.Request_Controller import RequestController
+from api.controller.Car_Controller import CarController
+from api.controller.General_Controller import GeneralController
+
 
 class MainController(GeneralController):
 

@@ -2,16 +2,16 @@
 from datetime import date as Date
 
 # Models
-from ..model.Car import Car
-from ..model.Request import Request
-from ..model.User import User
+from api.model.Car import Car
+from api.model.Request import Request
+from api.model.User import User
 
 # Views
-from ..screen.Request_Screen import RequestScreen
+from api.screen.Request_Screen import RequestScreen
 
 # Controllers
-from ..controller.General_Controller import GeneralController
-from ..controller.Main_Controller import MainController
+from api.controller.General_Controller import GeneralController
+from api.controller.Main_Controller import MainController
 
 
 class RequestController(GeneralController):
