@@ -87,3 +87,19 @@ class Request(GeneralModel):
     @reason.setter
     def reason(self, reason):
         self.__reason = reason
+
+    def to_array(self):
+        if(self.accepted):
+            string_accepted = "ACEITO"
+        else:
+            string_accepted = "NEGADO"
+        to_array = {
+            'id': self.id_request,
+            'Nome': self.user.user_name,
+            'Carro': self.key.car.car_model,
+            'Dia da Requisicao': self.created_date,
+            'Dia da Devolucao': self.devolution_date,
+            'Aprovacao': string_accepted,
+            'Razao para negacao': self.reason,
+        }
+        return to_array
