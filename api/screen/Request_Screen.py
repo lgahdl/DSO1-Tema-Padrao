@@ -18,8 +18,23 @@ class RequestScreen(GeneralScreen):
     def request_controller(self, request_controller):
         self.__request_controller = request_controller
 
-    def add(self, user, car):
-        self.__request_controller.add_request(user, car)
+    def open(self):
+        option = input("Digite o numero que corresponde ao que voce deseja fazer: \
+                            \n 1- Pedir uma chave \n 2- Devolver uma chave \n \
+                             3- Deletar uma das Requisiçoes \n 4- Voltar ao menu principal")
+        if(option == 1):
+            car_plate = input("Digite a placa do carro que você deseja ou digite 'Voltar' para voltar para a tela anterior")
+            if(car_plate == "Voltar"):
+                self.open()
+            else:
+                self.add(self.__request_controller.main_controller.user, car_plate)
+        elif(option == 2):
+
+
+
+
+    def add(self, user, car_plate):
+        self.__request_controller.add_request(user, car_plate)
 
     def edit(self, request, id_request):
         self.__request_controller.edit_request(request, id_request)
@@ -29,3 +44,6 @@ class RequestScreen(GeneralScreen):
 
     def open_main_screen(self):
         self.__request_controller.open_main_screen()
+
+    def show_is_blocked_message(self):
+        print("Você tentou mais de 3 vezes acessar esse mesmo veículo, você está bloqueado")
