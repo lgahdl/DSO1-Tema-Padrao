@@ -17,6 +17,10 @@ class GeneralScreen(ABC):
         self.__controller = controller
 
     @abstractmethod
+    def open(self):
+        pass
+
+    @abstractmethod
     def add(self, **elements):
         pass
 
