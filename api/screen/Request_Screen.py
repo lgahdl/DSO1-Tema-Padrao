@@ -2,7 +2,7 @@
 from api.screen.General_Screen import GeneralScreen
 
 # Models
-
+from api.model.Request import Request
 
 class RequestScreen(GeneralScreen):
 
@@ -41,24 +41,24 @@ class RequestScreen(GeneralScreen):
                 print("Opcao Invalida!!!".center(60, "-"))
 
 
-    def add(self, user, car_plate):
-        super().controller.add_request(user, car_plate)
+    def add(self, car_plate):
+        return super().controller.add_request(car_plate)
 
     def edit(self, request, id_request):
-        super().controller.edit_request(request, id_request)
+        return super().controller.edit_request(request, id_request)
 
     def delete(self, id_request):
-        super().controller.delete_request(id_request)
+        return super().controller.delete_request(id_request)
 
     def open_main_screen(self):
-        super().controller.open_main_screen()
+        return super().controller.open_main_screen()
 
     def show_is_blocked_message(self):
         print("Você tentou mais de 3 vezes acessar esse mesmo veículo, você está bloqueado")
 
     def open_add_menu(self):
         print(" Nova Requisicao".center(60, "-"))
-        user_array = super().controller.__main_controller.user.to_array()
+        user_array = super().controller.main_controller.user.to_array()
         print((" *** Requisicao para o Usuario: *** ").center(60))
         for key in user_array:
             string = (" | %s => %s | " % (key, user_array[key]))
@@ -68,7 +68,7 @@ class RequestScreen(GeneralScreen):
         if (car_plate == "Voltar"):
             self.open()
         else:
-            return self.add(super().controller.main_controller.user, car_plate)
+            return self.add(car_plate)
 
 
     def open_delete_menu(self):
