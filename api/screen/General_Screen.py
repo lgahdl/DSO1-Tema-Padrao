@@ -21,6 +21,25 @@ class GeneralScreen(ABC):
         pass
 
     @abstractmethod
+    def open_add_menu(self):
+        pass
+
+    @abstractmethod
+    def open_delete_menu(self):
+        pass
+
+    @abstractmethod
+    def open_edit_menu(self):
+        pass
+
+    @abstractmethod
+    def open_list_menu(self):
+        pass
+
+    def open_main_screen(self):
+        self.controller.open_main_screen()
+
+    @abstractmethod
     def add(self, **elements):
         pass
 

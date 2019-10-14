@@ -10,11 +10,17 @@ class MainController(GeneralController):
     def __init__(self, main_screen: MainScreen, user_controller: UserController, request_controller: RequestController,
                  car_controller: CarController):
         super().__init__()
-        self.__main_screen = main_screen
         self.__user_controller = user_controller
         self.__request_controller = request_controller
         self.__car_controller = car_controller
         self.__user = None
+
+    def create_screen(self):
+        self.__main_screen = MainScreen(self)
+
+    def destroy_screen(self):
+        if self.__main_screen is not None:
+            del self.__main_screen
 
     @property
     def main_screen(self):
