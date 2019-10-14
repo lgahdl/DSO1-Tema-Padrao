@@ -14,12 +14,13 @@ from api.controller.General_Controller import GeneralController
 
 class UserController(GeneralController):
 
-    def __init__(self, users=None):
+    def __init__(self, main_controller, users=None):
         super().__init__()
         if users is None:
             users = []
         self.__users = users
         self.create_screen()
+        self.__main_controller = main_controller
 
     @property
     def users(self):
