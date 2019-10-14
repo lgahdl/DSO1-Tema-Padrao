@@ -54,15 +54,15 @@ cars = [{"id_car": 1,
          "car_tier": 2
          }]
 keys = [{"id_key": 1,
-         "car": cars[0]},
+         "car_plate": "XYZ9955"},
         {"id_key": 2,
-         "car": cars[1]},
+         "car_plate": "QWE5544"},
         {"id_key": 3,
-         "car": cars[2]}]
+         "car_plate": "IUY1996"}]
 
 requests = [{"id_request": 1,
-             "user": users[0],
-             "key": keys[0],
+             "user": 1,
+             "key_car_plate": "IUY1996",
              "created_date": date(2019, 9, 19),
              "devolution_date": date(2019, 9, 21),
              "accepted": True,

@@ -94,8 +94,7 @@ class Request(GeneralModel):
         else:
             string_accepted = "NEGADO"
         to_array = {
-            'id': self.id_request,
-            'Nome': self.user.user_name,
+            'id': self.id,
             'Carro': self.key.car.car_model,
             'Dia da Requisicao': self.created_date,
             'Dia da Devolucao': self.devolution_date,

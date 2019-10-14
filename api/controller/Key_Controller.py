@@ -24,7 +24,7 @@ class KeyController(GeneralController):
         for encapsulated_key in dependencies_list:
             key = Key(
                 encapsulated_key['id_key'],
-                encapsulated_key['car']
+                self.__main_controller.car_controller.get_car_by_plate(encapsulated_key['car_plate'])
             )
             self.__keys.append(key)
 

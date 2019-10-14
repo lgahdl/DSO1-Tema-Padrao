@@ -35,7 +35,7 @@ class RequestController(GeneralController):
             request = Request(
                encapsulated_request['id_request'],
                encapsulated_request['user'],
-               encapsulated_request['key'],
+               self.__main_controller.key_controller.get_key_by_car_plate(encapsulated_request['key_car_plate']),
                encapsulated_request['created_date'],
                encapsulated_request['devolution_date'],
                encapsulated_request['accepted'],
@@ -68,6 +68,7 @@ class RequestController(GeneralController):
         car = self.main_controller.car_controller.get_car_by_plate(car_plate)
         print(car)
         is_blocked = False
+        key = self.main_controller.key_controller.get_key_by_car_plate(car_plate)
         for request in self.requests:
             if (request.user == self.main_controller.user and request.accepted == False and request.car == car):
                 user_denied_requests += 1
@@ -75,7 +76,7 @@ class RequestController(GeneralController):
             is_blocked = True
         if (self.main_controller.user.check_car_permission(car) and not is_blocked):
             self.__requests.append(
-                Request(self.id_request, self.main_controller.user, car.key, Date.today(), None, True, ''))
+                Request(self.id_request, self.main_controller.user, key, Date.today(), None, True, ''))
         elif (not is_blocked):
             self.__requests.append(Request(self.id_request, self.main_controller.user, car.key,
                                            Date.today(), Date.today(), False,
