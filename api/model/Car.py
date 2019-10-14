@@ -1,10 +1,11 @@
-from ..model import General_Model
+from api.model.General_Model import GeneralModel
 
 
-class Car(General_Model):
+class Car(GeneralModel):
 
-    def __init__(self, id: int, car_plate: str, model: str, brand: str, \
+    def __init__(self, id: int, car_plate: str, model: str, brand: str,
                  year: int, kilometer: float, tier: int):
+        super().__init__()
         self.__id_car = id
         self.__car_plate = car_plate
         self.__car_model = model

@@ -9,10 +9,12 @@ class GeneralModel(ABC):
     def __init__(self):
         pass
 
+    @property
     @abstractmethod
-    def id(self):
-        return self.__id
+    def id(self) -> int:
+        pass
 
     @id.setter
-    def id(self, id_model: int):
-        self.__id = id_model
+    @abstractmethod
+    def id(self, id_model: int) -> int:
+        pass
