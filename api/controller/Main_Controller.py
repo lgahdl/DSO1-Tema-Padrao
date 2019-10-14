@@ -98,3 +98,6 @@ class MainController(GeneralController):
             return True
         else:
             return False
+
+    def exit(self):
+        exit(0)

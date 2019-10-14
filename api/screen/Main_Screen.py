@@ -29,6 +29,9 @@ class MainScreen(GeneralScreen):
         print(" | Requisicoes [2]  | ".center(60))
         print(" | Chaves [3]  | ".center(60))
         print(" | Carros [4]  | ".center(60))
+        print(" |  | ".center(60))
+        print(" |  | ".center(60))
+        print(" | SAIR[-1] | ".center(60))
         while True:
             option = int(input(" Insira a opção desejada: ".center(60)))
             if option == 1:
@@ -39,6 +42,8 @@ class MainScreen(GeneralScreen):
                 super().controller.open_key_controller()
             elif option == 4:
                 super().controller.open_car_controller()
+            elif option == -1:
+                super().controller.exit()
             else:
                 print("Opção Inválida".center(60, "-"))
 
