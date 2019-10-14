@@ -6,3 +6,10 @@ class GeneralController(ABC):
     @abstractmethod
     def __init__(self):
         pass
+
+    @abstractmethod
+    def create_screen(self):
+        pass
+
+    def destroy_screen(self):
+        pass
