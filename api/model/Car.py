@@ -3,16 +3,16 @@ from api.model.General_Model import GeneralModel
 
 class Car(GeneralModel):
 
-    def __init__(self, id: int, car_plate: str, model: str, brand: str,
-                 year: int, kilometer: float, tier: int):
+    def __init__(self, id: int, car_plate: str, car_model: str, car_brand: str,
+                 car_year: int, car_kilometer: float, car_tier: int):
         super().__init__()
         self.__id_car = id
         self.__car_plate = car_plate
-        self.__car_model = model
-        self.__car_brand = brand
-        self.__car_year = year
-        self.__car_kilometer = kilometer
-        self.__car_tier = tier
+        self.__car_model = car_model
+        self.__car_brand = car_brand
+        self.__car_year = car_year
+        self.__car_kilometer = car_kilometer
+        self.__car_tier = car_tier
 
     """
     |--------------|
@@ -81,3 +81,14 @@ class Car(GeneralModel):
     @car_tier.setter
     def car_tier(self, tier: str):
         self.__car_tier = tier
+
+    def to_array(self):
+        to_array = {
+            'Id': self.id,
+            'Placa': self.car_plate,
+            'Modelo': self.car_model,
+            'Marca': self.car_brand,
+            'Ano': self.car_year,
+            'Categoria': self.car_tier
+        }
+        return to_array

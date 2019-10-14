@@ -9,12 +9,11 @@ from api.screen.User_Screen import UserScreen
 
 # Controllers
 from api.controller.General_Controller import GeneralController
-from api.controller.Main_Controller import MainController
 
 
 class UserController(GeneralController):
 
-    def __init__(self, main_controller: MainController, users=None):
+    def __init__(self, main_controller, users=None):
         super().__init__()
         if users is None:
             users = []
