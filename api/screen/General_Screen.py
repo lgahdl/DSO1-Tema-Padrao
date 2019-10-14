@@ -17,14 +17,15 @@ class GeneralScreen(ABC):
         self.__controller = controller
 
     def open(self):
-        print(" {} ".format(self.__class__.__name__).center(60, "-"))
-        print(" | Você Deseja:  | ".center(60))
-        print(" | Inserir [1]  | ".center(60))
-        print(" | Deletar [2]  | ".center(60))
-        print(" | Editar [3]  | ".center(60))
-        print(" | Listar [4]  | ".center(60))
-        print(" | Voltar Para o Menu[5] | ".center(60))
         while True:
+            print("\n")
+            print(" {} ".format(self.__class__.__name__).center(60, "-"))
+            print(" | Você Deseja:  | ".center(60))
+            print(" | Inserir [1]  | ".center(60))
+            print(" | Deletar [2]  | ".center(60))
+            print(" | Editar [3]  | ".center(60))
+            print(" | Listar [4]  | ".center(60))
+            print(" | Voltar Para o Menu[5] | ".center(60))
             option = int(input(" Insira a opção desejada: ".center(60)))
             if option == 1:
                 self.open_add_menu()

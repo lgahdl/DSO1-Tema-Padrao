@@ -9,20 +9,24 @@ from ..controller.General_Controller import GeneralController
 
 
 class KeyController(GeneralController):
-
     id_key = 1
 
-    def __init__(self, keys: [Key], main_controller):
+    def __init__(self, main_controller, keys: [Key] = []):
+        super().__init__()
         self.__keys = keys
         self.__main_controller = main_controller
         self.create_screen()
-        self.create_dependencies_by_list()
 
     def create_screen(self):
         self.__key_screen = KeyScreen(self)
 
     def create_dependencies_by_list(self, dependencies_list: []):
-        pass
+        for encapsulated_key in dependencies_list:
+            key = Key(
+                encapsulated_key['id_key'],
+                encapsulated_key['car']
+            )
+            self.__keys.append(key)
 
     """
     |--------------|

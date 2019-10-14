@@ -83,19 +83,22 @@ class UserScreen(GeneralScreen):
                 print(" | | CEO[3] Gerente[2] Empregado[1] Estagiário[0] | | ".center(60))
                 role = None
                 while role is None:
-                    input_role = int(input(" | Código  | ".center(60)))
-                    if 0 <= input_role <= 3 and input_role is not None:
-                        role = input_role
+                    input_role = input(" | Código  | ".center(60))
+                    if role is None or role == '':
+                        for key in user.permission_role:
+                            if role == user.permission_role[key]:
+                                role = key
+                    role = int(role)
+                    if 0 <= role <= 3 and role is not None:
+                        role = role
                     else:
                         print(" !!!Opção Inválida!!! ".center(60))
-                    if role is None:
-                        role = user.user_role
                 user.user_role = role
             elif key == "Telefone":
                 string = (" | %s => %s | " % (key, user_array[key]))
                 print(string.center(60))
-                phone = int(input(" Novo Telefone ".center(60))) or user.user_phone
-                user.user_phone = phone
+                phone = input(" Novo Telefone ".center(60)) or user.user_phone
+                user.user_phone = int(phone)
             else:
                 string = (" | %s => %s | " % (key, user_array[key]))
                 print(string.center(60))
@@ -108,6 +111,7 @@ class UserScreen(GeneralScreen):
             user_number = 1
             for user in users:
                 user_array = user.to_array()
+                print("\n")
                 print((" *** Usuário "+str(user_number)+" *** ").center(60))
                 for key in user_array:
                     string = (" | %s => %s | " % (key, user_array[key]))

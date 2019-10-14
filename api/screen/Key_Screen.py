@@ -1,14 +1,8 @@
-#models
-from api.model.Key import Key
-
-#controllers
-from api.controller.Key_Controller import KeyController
-
 #screens
 from api.screen.General_Screen import GeneralScreen
 
 class KeyScreen(GeneralScreen):
-    def __init__(self, key_controller: KeyController):
+    def __init__(self, key_controller):
         super().__init__(key_controller)
 
     def open(self):
@@ -17,7 +11,7 @@ class KeyScreen(GeneralScreen):
     def add(self):
         super().controller.add_key()
 
-    def edit(self, key: Key, id_key: int):
+    def edit(self, key, id_key: int):
         super().controller.edit_key(key, id_key)
 
     def delete(self, car_plate: int):

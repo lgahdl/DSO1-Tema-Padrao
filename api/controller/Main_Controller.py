@@ -2,6 +2,7 @@ from api.screen.Main_Screen import MainScreen
 from api.controller.User_Controller import UserController
 from api.controller.Request_Controller import RequestController
 from api.controller.Car_Controller import CarController
+from api.controller.Key_Controller import KeyController
 from api.controller.General_Controller import GeneralController
 from api.data import data
 
@@ -17,6 +18,7 @@ class MainController(GeneralController):
         self.__user_controller = UserController(self)
         self.__request_controller = RequestController(self)
         self.__car_controller = CarController(self)
+        self.__key_controller = KeyController(self)
         self.create_data()
 
     def create_data(self):
@@ -25,6 +27,7 @@ class MainController(GeneralController):
         cars = data.cars
         self.car_controller.create_dependencies_by_list(cars)
         keys = data.keys
+        self.key_controller.create_dependencies_by_list(keys)
         requests = data.requests
 
     def create_dependencies_by_list(self, dependencies_list: []):
@@ -54,6 +57,10 @@ class MainController(GeneralController):
         return self.__car_controller
 
     @property
+    def key_controller(self):
+        return self.__key_controller
+
+    @property
     def user(self):
         return self.__user
 
@@ -73,6 +80,10 @@ class MainController(GeneralController):
     def car_controller(self, car_controller):
         self.__car_controller = car_controller
 
+    @key_controller.setter
+    def key_controller(self, key_controller):
+        self.__key_controller = key_controller
+
     @user.setter
     def user(self, user):
         self.__user = user
@@ -87,10 +98,10 @@ class MainController(GeneralController):
         self.user_controller.open_user_screen()
 
     def open_key_controller(self):
-        self.key_controller.open()
+        self.key_controller.open_key_screen()
 
     def open_car_controller(self):
-        self.car_controller.open()
+        self.car_controller.open_car_screen()
 
     def get_user(self, id_user: int):
         self.__user = self.user_controller.get_user_by_id(id_user)
