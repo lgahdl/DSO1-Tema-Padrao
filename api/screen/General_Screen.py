@@ -17,7 +17,7 @@ class GeneralScreen(ABC):
         self.__controller = controller
 
     def open(self):
-        print(" User Screen ".center(60, "-"))
+        print(" {} ".format(self.__class__.__name__).center(60, "-"))
         print(" | Você Deseja:  | ".center(60))
         print(" | Inserir [1]  | ".center(60))
         print(" | Deletar [2]  | ".center(60))
