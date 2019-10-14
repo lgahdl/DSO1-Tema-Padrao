@@ -64,23 +64,21 @@ class RequestController(GeneralController):
         self.__request_screen = request_screen
 
     def add_request(self, car_plate: str):
-        user_denied_requests = 0
         car = self.main_controller.car_controller.get_car_by_plate(car_plate)
-        print(car)
         is_blocked = False
         key = self.main_controller.key_controller.get_key_by_car_plate(car_plate)
-        for request in self.requests:
-            if (request.user == self.main_controller.user and request.accepted == False and request.car == car):
-                user_denied_requests += 1
-        if (user_denied_requests >= 3):
+        if (self.main_controller.user.user_denied_requests >= 3):
             is_blocked = True
         if (self.main_controller.user.check_car_permission(car) and not is_blocked):
+            print("Permissao Aceita")
             self.__requests.append(
                 Request(self.id_request, self.main_controller.user, key, Date.today(), None, True, ''))
         elif (not is_blocked):
-            self.__requests.append(Request(self.id_request, self.main_controller.user, car.key,
+            self.main_controller.user.user_denied_requests += 1
+            self.__requests.append(Request(self.id_request, self.main_controller.user, key,
                                            Date.today(), Date.today(), False,
                                            'O Usuário não tem permissão para esse veículo'))
+            print("O Usuário não tem permissão para esse veiculo")
         elif (is_blocked):
             self.request_screen.show_is_blocked_message()
         self.id_request += 1
@@ -109,7 +107,7 @@ class RequestController(GeneralController):
         for REQUEST in self.__requests:
             if (request == REQUEST):
                 request.devolution_date = Date.today()
-                self.edit_request(request)
+                self.edit_request(request, REQUEST.id_request)
             else:
                 return "ERROR 404 - Request not found"
 

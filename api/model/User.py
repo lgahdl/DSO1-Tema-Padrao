@@ -25,6 +25,7 @@ class User(GeneralModel):
         self.__user_role = self.permission_role[user_role]
         self.__user_phone = user_phone
         self.__cars = cars
+        self.__user_denied_requests = 0
 
     """
     |--------------|
@@ -56,6 +57,10 @@ class User(GeneralModel):
     def cars(self):
         return self.__cars
 
+    @property
+    def user_denied_requests(self):
+        return self.__user_denied_requests
+
     """
     |--------------|
     |   SETTERS    |
@@ -65,6 +70,7 @@ class User(GeneralModel):
     @id.setter
     def id(self, id_user: int):
         self.__id_user = id_user
+
 
     @user_name.setter
     def user_name(self, user_name: str):
@@ -85,6 +91,10 @@ class User(GeneralModel):
     @cars.setter
     def cars(self, cars: str):
         self.__cars = cars
+
+    @user_denied_requests.setter
+    def user_denied_requests(self, user_denied_requests: int):
+        self.__user_denied_requests = user_denied_requests
 
     def to_array(self):
         to_array = {

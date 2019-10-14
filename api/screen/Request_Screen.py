@@ -54,7 +54,7 @@ class RequestScreen(GeneralScreen):
         return super().controller.open_main_screen()
 
     def show_is_blocked_message(self):
-        print("Você tentou mais de 3 vezes acessar esse mesmo veículo, você está bloqueado")
+        print("Você tentou mais de 3 vezes veículos não permitidos, você está bloqueado")
 
     def open_add_menu(self):
         print(" Nova Requisicao".center(60, "-"))
@@ -63,8 +63,7 @@ class RequestScreen(GeneralScreen):
         for key in user_array:
             string = (" | %s => %s | " % (key, user_array[key]))
             print(string.center(60))
-        car_plate = input("---Digite a placa do carro(formato: ZZZ9999) que você deseja requirir\
-                            ou digite 'Voltar' para voltar para a tela anterior---".center(60))
+        car_plate = input("---Digite a placa do carro(formato: ZZZ9999) que você deseja requirir ou digite 'Voltar' para voltar para a tela anterior---".center(60))
         if (car_plate == "Voltar"):
             self.open()
         else:
@@ -82,19 +81,23 @@ class RequestScreen(GeneralScreen):
 
     def open_return_key_screen(self):
         print(" Devolucao".center(60, "-"))
-        user_array = super().controller.__main_controller.user.to_array()
+        user_array = super().controller.main_controller.user.to_array()
         print((" *** Devolucao do Usuario: *** ").center(60))
         for key in user_array:
             string = (" | %s => %s | " % (key, user_array[key]))
             print(string.center(60))
-        request = super().controller.get_unfinished_request_by_user(super().controller.__main_controller.user)
-        super().controller.return_key(request)
-        print("Chave Devolvida")
-        finished_request = super().controller.get_request_by_id(request.id_request)
-        request_array = finished_request.to_array()
-        for key in request_array:
-            string = (" | %s => %s | " % (key, request_array[key]))
-            print(string.center(60))
+        request = super().controller.get_unfinished_request_by_user(super().controller.main_controller.user)
+        if(isinstance(request, Request)):
+            super().controller.return_key(request)
+            print("Chave Devolvida")
+            print(request)
+            finished_request = super().controller.get_request_by_id(request.id_request)
+            request_array = finished_request.to_array()
+            for key in request_array:
+                string = (" | %s => %s | " % (key, request_array[key]))
+                print(string.center(60))
+        else:
+            print("Voce nao tem chave para devolver")
 
     def open_list_menu(self):
         print(" Listagem de Requisicoes ".center(60, "-"))

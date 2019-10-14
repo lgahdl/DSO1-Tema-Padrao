@@ -61,7 +61,7 @@ class Request(GeneralModel):
     """
 
     @id.setter
-    def id(self, id_request):
+    def id_request(self, id_request):
         self.__id_request = id_request
 
     @user.setter
@@ -94,7 +94,7 @@ class Request(GeneralModel):
         else:
             string_accepted = "NEGADO"
         to_array = {
-            'id': self.id,
+            'id': self.id_request,
             'Carro': self.key.car.car_model,
             'Dia da Requisicao': self.created_date,
             'Dia da Devolucao': self.devolution_date,
