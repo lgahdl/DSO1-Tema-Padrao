@@ -67,7 +67,7 @@ class RequestController(GeneralController):
                 user_denied_requests += 1
         if (user_denied_requests >= 3):
             is_blocked = True
-        if (self.main_controller.user.check_car_permission(car_plate) and not is_blocked):
+        if (self.main_controller.user.check_car_permission(car) and not is_blocked):
             self.__requests.append(
                 Request(self.id_request, self.main_controller.user, car.key, Date.today(), None, True, ''))
         elif (not is_blocked):
