@@ -7,13 +7,15 @@ from ..screen.Main_Screen import MainScreen
 
 # Controllers
 from ..controller.General_Controller import GeneralController
+from ..controller.Main_Controller import  MainController
 
 
 class CarController(GeneralController):
 
-    def __init__(self, cars: [Car], car_screen: CarScreen):
+    def __init__(self, cars: [Car], car_screen: CarScreen, main_controller: MainController):
         self.__cars = cars
         self.__car_screen = car_screen
+        self.__main_controller = main_controller
 
     """
     |--------------|
@@ -67,5 +69,5 @@ class CarController(GeneralController):
         self.__car_screen.open()
 
     @staticmethod
-    def open_main_screen():
-        MainScreen.open()
+    def open_main_screen(self):
+        self.__main_controller.open_main_screen()

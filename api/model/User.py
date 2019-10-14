@@ -84,3 +84,5 @@ class User(GeneralModel):
 
     def check_car_permission(self, car: Car):
         pass
+
+

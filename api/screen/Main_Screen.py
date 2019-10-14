@@ -14,5 +14,4 @@ class MainScreen(GeneralScreen):
     @staticmethod
     def open(self):
         id_user = raw_input('Olá, por favor, digite sua Matrícula')
-        user_phone = raw_input('Agora digite seu número de Telefone')
-        self.login()
+        self.login(id_user)
