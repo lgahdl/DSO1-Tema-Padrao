@@ -55,7 +55,7 @@ class RequestController(GeneralController):
 
     def add_request(self, car_plate: str):
         user_denied_requests = 0
-        car = self.main_controller.car_controller.get_car(car_plate)
+        car = self.main_controller.car_controller.get_car_by_plate(car_plate)
         is_blocked = False
         for request in self.requests:
             if(request.user == self.main_controller.user and request.accepted == False and request.car == car):

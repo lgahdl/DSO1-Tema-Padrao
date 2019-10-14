@@ -79,3 +79,7 @@ class MainController(GeneralController):
 
     def get_user(self, id_user: int):
         self.__user = self.user_controller.get_user_by_id(id_user)
+        if(self.__user):
+            return True
+        else:
+            return False
