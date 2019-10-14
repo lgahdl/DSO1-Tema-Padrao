@@ -113,4 +113,5 @@ class RequestScreen(GeneralScreen):
                 request_number = request_number + 1
 
     def open_edit_menu(self):
-        pass
+        print("Requisicoes não oferecem essa opção")
+        self.open()

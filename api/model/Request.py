@@ -77,7 +77,7 @@ class Request(GeneralModel):
         self.__created_date = created_date
 
     @devolution_date.setter
-    def devolution_date(self, devolution_date):
+    def devolution_date(self, devolution_date: date):
         self.__devolution_date = devolution_date
 
     @accepted.setter
