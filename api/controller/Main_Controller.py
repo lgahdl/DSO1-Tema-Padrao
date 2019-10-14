@@ -29,6 +29,7 @@ class MainController(GeneralController):
         keys = data.keys
         self.key_controller.create_dependencies_by_list(keys)
         requests = data.requests
+        self.request_controller.create_dependencies_by_list(requests)
 
     def create_dependencies_by_list(self, dependencies_list: []):
         pass

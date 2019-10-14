@@ -72,9 +72,7 @@ class UserScreen(GeneralScreen):
             if key == "Data de Nascimento":
                 string = (" | %s => %s | " % (key, user_array[key]))
                 print(string.center(60))
-                birth_date = input(" Nova Data de Nascimento ".center(60))
-                if birth_date is None:
-                    birth_date = user.user_birthday
+                birth_date = input(" Nova Data de Nascimento ".center(60)) or user.user_birthday
                 user.user_birthday = birth_date
             elif key == "Cargo":
                 string = (" | %s => %s | " % (key, user_array[key]))
@@ -84,16 +82,16 @@ class UserScreen(GeneralScreen):
                 role = None
                 while role is None:
                     input_role = input(" | Código  | ".center(60))
-                    if role is None or role == '':
-                        for key in user.permission_role:
-                            if role == user.permission_role[key]:
-                                role = key
-                    role = int(role)
-                    if 0 <= role <= 3 and role is not None:
-                        role = role
+                    if input_role is None or input_role is '':
+                        for KEY in user.permission_role:
+                            if user.permission_role[KEY] == user.user_role:
+                                input_role = KEY
+                    input_role = int(input_role)
+                    if 0 <= input_role <= 3 and input_role is not None:
+                        role = input_role
                     else:
                         print(" !!!Opção Inválida!!! ".center(60))
-                user.user_role = role
+                user.user_role = int(role)
             elif key == "Telefone":
                 string = (" | %s => %s | " % (key, user_array[key]))
                 print(string.center(60))
