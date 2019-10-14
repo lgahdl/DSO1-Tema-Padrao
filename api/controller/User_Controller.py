@@ -6,21 +6,27 @@ from api.model.User import User
 
 # Views
 from api.screen.User_Screen import UserScreen
-from api.screen.Main_Screen import MainScreen
 
 # Controllers
 from api.controller.General_Controller import GeneralController
+from api.controller.Main_Controller import MainController
 
 
 class UserController(GeneralController):
 
-    def __init__(self, main_controller, users=None):
+    def __init__(self, main_controller: MainController, users=None):
         super().__init__()
         if users is None:
             users = []
         self.__users = users
-        self.create_screen()
         self.__main_controller = main_controller
+        self.create_screen()
+
+    """
+    |--------------|
+    |   GETTERS    |
+    |--------------|
+    """
 
     @property
     def users(self):
@@ -30,7 +36,8 @@ class UserController(GeneralController):
         self.__user_screen = UserScreen(self)
 
     def destroy_screen(self):
-        self.__user_screen = None
+        if self.__user_screen is not None:
+            del self.__user_screen
 
     def add_user(
             self,
@@ -69,9 +76,9 @@ class UserController(GeneralController):
     def open_user_screen(self):
         self.__user_screen.open()
 
-    @staticmethod
-    def open_main_screen():
-        MainScreen.open()
+    def open_main_screen(self):
+        self.destroy_screen()
+        self.__main_controller.open_main_screen()
 
     def get_user_by_id(self, id_user):
         for user in self.__users:
