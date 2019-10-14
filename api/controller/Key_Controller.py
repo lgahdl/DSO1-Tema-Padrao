@@ -3,21 +3,26 @@ from api.model.Key import Key
 
 # Views
 from api.screen.Key_Screen import KeyScreen
-from api.screen.Main_Screen import MainScreen
 
 # Controllers
 from ..controller.General_Controller import GeneralController
-from ..controller.Main_Controller import  MainController
 
 
 class KeyController(GeneralController):
 
     id_key = 1
 
-    def __init__(self, keys: [Key], key_screen: KeyScreen, main_controller: MainController):
+    def __init__(self, keys: [Key], main_controller):
         self.__keys = keys
-        self.__key_screen = key_screen
         self.__main_controller = main_controller
+        self.create_screen()
+        self.create_dependencies_by_list()
+
+    def create_screen(self):
+        self.__key_screen = KeyScreen(self)
+
+    def create_dependencies_by_list(self, dependencies_list: []):
+        pass
 
     """
     |--------------|
