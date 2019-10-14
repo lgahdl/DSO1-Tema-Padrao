@@ -3,11 +3,14 @@ from ..model import General_Model
 
 class Car(General_Model):
 
-    def __init__(self, id: int, car_plate: str, model: str, brand: str, tier: int):
+    def __init__(self, id: int, car_plate: str, model: str, brand: str, \
+                 year: int, kilometer: float, tier: int):
         self.__id_car = id
         self.__car_plate = car_plate
         self.__car_model = model
         self.__car_brand = brand
+        self.__car_year = year
+        self.__car_kilometer = kilometer
         self.__car_tier = tier
 
     """
@@ -31,6 +34,14 @@ class Car(General_Model):
     @property
     def car_brand(self):
         return self.__car_brand
+
+    @property
+    def car_year(self):
+        return self.__car_year
+
+    @property
+    def car_kilometer(self):
+        return self.__car_kilometer
 
     @property
     def car_tier(self):
@@ -57,6 +68,14 @@ class Car(General_Model):
     @car_brand.setter
     def car_brand(self, brand: str):
         self.__car_brand = brand
+
+    @car_year.setter
+    def car_year(self, year: str):
+        self.__car_year = year
+
+    @car_kilometer.setter
+    def car_kilometer(self, kilometer: str):
+        self.__car_kilometer = kilometer
 
     @car_tier.setter
     def car_tier(self, tier: str):
