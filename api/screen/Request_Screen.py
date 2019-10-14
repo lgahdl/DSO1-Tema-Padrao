@@ -26,20 +26,20 @@ class RequestScreen(GeneralScreen):
         print(" | Deletar uma das Requisicoes [3]  | ".center(60))
         print(" | Listar as Requisicoes [4]  | ".center(60))
         print(" | Voltar Para o Menu[5] | ".center(60))
-        option = input("Digite o numero que corresponde ao que voce deseja fazer:".center(60))
-        if(option == 1):
-            self.open_add_menu()
-        elif(option == 2):
-            self.open_return_key_screen()
-
-        elif(option == 3):
-            self.open_delete_menu()
-        elif(option == 4):
-            self.open_delete_menu()
-        elif(option == 5):
-            super().controller.open_main_screen()
-        else:
-            self.open()
+        while True:
+            option = input("Digite o numero que corresponde ao que voce deseja fazer:".center(60))
+            if(option == 1):
+                self.open_add_menu()
+            elif(option == 2):
+                self.open_return_key_screen()
+            elif(option == 3):
+                self.open_delete_menu()
+            elif(option == 4):
+                self.open_delete_menu()
+            elif(option == 5):
+                super().controller.open_main_screen()
+            else:
+                print("Opcao Invalida!!!".center(60, "-"))
 
 
     def add(self, user, car_plate):

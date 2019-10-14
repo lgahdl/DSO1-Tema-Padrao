@@ -32,7 +32,7 @@ class MainScreen(GeneralScreen):
                     super().controller.open_car_controller()
                 else:
                     print("Opção Inválida".center(60, "-"))
-        elif:
+        else:
             print("Matricula Invalida".center(60,"-"))
 
     def login(self, id_user: int):
