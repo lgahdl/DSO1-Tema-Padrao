@@ -19,9 +19,14 @@ class RequestScreen(GeneralScreen):
         self.__request_controller = request_controller
 
     def open(self):
-        option = input("Digite o numero que corresponde ao que voce deseja fazer: \
-                            \n 1- Pedir uma chave \n 2- Devolver uma chave \n \
-                             3- Deletar uma das Requisiçoes \n 4- Voltar ao menu principal")
+        print(" User Screen ".center(60, "-"))
+        print(" | Você Deseja:  | ".center(60))
+        print(" | Pedir uma chave [1]  | ".center(60))
+        print(" | Devolver uma chave [2]  | ".center(60))
+        print(" | Deletar uma das Requisicoes [3]  | ".center(60))
+        print(" | Listar as Requisicoes [4]  | ".center(60))
+        print(" | Voltar Para o Menu[5] | ".center(60))
+        option = input("Digite o numero que corresponde ao que voce deseja fazer:".center(60))
         if(option == 1):
             car_plate = input("Digite a placa do carro(formato: ZZZ9999) que você deseja ou digite 'Voltar' para voltar para a tela anterior")
             if(car_plate == "Voltar"):
@@ -37,6 +42,8 @@ class RequestScreen(GeneralScreen):
             request = self.__request_controller.get_request_by_id(id_request)
             self.__request_controller.delete_request(request)
         elif(option == 4):
+
+        elif(option == 5):
             self.__request_controller.open_main_screen()
         else:
             self.open()
