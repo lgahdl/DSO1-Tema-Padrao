@@ -31,12 +31,17 @@ class RequestController(GeneralController):
             del self.__request_screen
 
     def create_dependencies_by_list(self, dependencies_list: []):
-        # for encapsulated_request in dependencies_list:
-        #    self.add_request(
-        #        encapsulated_request['id_request'],
-        #
-        #    )
-        pass
+        for encapsulated_request in dependencies_list:
+            request = Request(
+               encapsulated_request['id_request'],
+               encapsulated_request['user'],
+               encapsulated_request['key'],
+               encapsulated_request['created_date'],
+               encapsulated_request['devolution_date'],
+               encapsulated_request['accepted'],
+               encapsulated_request['reason']
+            )
+            self.__requests.append(request)
 
     @property
     def request_screen(self):
