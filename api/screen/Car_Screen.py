@@ -36,6 +36,9 @@ class CarScreen(GeneralScreen):
     def edit(self, car: Car, id_car: int):
         super().controller.edit_car(car, id_car)
 
+    def open(self):
+        super().open()
+
     def open_add_menu(self):
         print(" Cadastro de Carro ".center(60, "-"))
 
@@ -78,7 +81,12 @@ class CarScreen(GeneralScreen):
                 print(string.center(60))
                 car_plate = input(" Nova Placa ".center(60)) or car.car_plate
                 car.car_plate = car_plate
-            if key == 'Categoria':
+            elif key == 'Quilometragem':
+                string = (" | %s => %s | " % (key, car_array[key]))
+                print(string.center(60))
+                car_kilometer = input(" Nova Quilometragem ".center(60)) or car.car_kilometer
+                car.car_kilometer = car_kilometer
+            elif key == 'Categoria':
                 string = (" | %s => %s | " % (key, car_array[key]))
                 print(string.center(60))
                 print(" | Insira a Categoria | ")

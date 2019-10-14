@@ -38,6 +38,17 @@ class UserController(GeneralController):
         if self.__user_screen is not None:
             del self.__user_screen
 
+    def create_dependencies_by_list(self, dependencies_list: []):
+        for encapsulated_user in dependencies_list:
+            self.add_user(
+                encapsulated_user['id_user'],
+                encapsulated_user['user_name'],
+                encapsulated_user['user_birthday'],
+                encapsulated_user['user_role'],
+                encapsulated_user['user_phone'],
+                encapsulated_user['cars'],
+            )
+
     def add_user(
             self,
             id_user: int,

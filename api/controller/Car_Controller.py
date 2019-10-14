@@ -7,18 +7,29 @@ from api.screen.Main_Screen import MainScreen
 
 # Controllers
 from ..controller.General_Controller import GeneralController
-from ..controller.Main_Controller import MainController
 
 
 class CarController(GeneralController):
 
-    def __init__(self, main_controller: MainController, cars=None):
+    def __init__(self, main_controller, cars=None):
         super().__init__()
         if cars is None:
             cars = []
         self.__cars = cars
         self.__main_controller = main_controller
         self.create_screen()
+
+    def create_dependencies_by_list(self, dependencies_list: []):
+        for encapsulated_car in dependencies_list:
+            self.add_car(
+                encapsulated_car['id_car'],
+                encapsulated_car['car_plate'],
+                encapsulated_car['car_model'],
+                encapsulated_car['car_brand'],
+                encapsulated_car['car_year'],
+                encapsulated_car['car_kilometer'],
+                encapsulated_car['car_tier']
+            )
 
     def create_screen(self):
         self.__car_screen = CarScreen(self)

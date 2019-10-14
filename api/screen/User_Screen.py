@@ -32,6 +32,9 @@ class UserScreen(GeneralScreen):
     def edit(self, user: User, id_user: int):
         return super().controller.edit_user(user, id_user)
 
+    def open(self):
+        super().open()
+
     def open_add_menu(self):
         print(" Cadastro de Usuário ".center(60, "-"))
 

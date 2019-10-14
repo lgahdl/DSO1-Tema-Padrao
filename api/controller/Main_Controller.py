@@ -3,17 +3,30 @@ from api.controller.User_Controller import UserController
 from api.controller.Request_Controller import RequestController
 from api.controller.Car_Controller import CarController
 from api.controller.General_Controller import GeneralController
+from api.data import data
 
 
 class MainController(GeneralController):
 
-    def __init__(self, main_screen: MainScreen, user_controller: UserController, request_controller: RequestController,
-                 car_controller: CarController):
+    def __init__(self):
         super().__init__()
-        self.__user_controller = user_controller
-        self.__request_controller = request_controller
-        self.__car_controller = car_controller
         self.__user = None
+        self.create_screen()
+        self.__user_controller = UserController(self)
+        self.__request_controller = RequestController(self)
+        self.__car_controller = CarController(self)
+        self.create_data()
+
+    def create_data(self):
+        users = data.users
+        self.user_controller.create_dependencies_by_list(users)
+        cars = data.cars
+        self.car_controller.create_dependencies_by_list(cars)
+        keys = data.keys
+        requests = data.requests
+
+    def create_dependencies_by_list(self, dependencies_list: []):
+        pass
 
     def create_screen(self):
         self.__main_screen = MainScreen(self)
@@ -50,7 +63,7 @@ class MainController(GeneralController):
     def user_controller(self, user_controller: UserController):
         self.__user_controller = user_controller
 
-    @request_controller
+    @request_controller.setter
     def request_controller(self, request_controller: RequestController):
         self.__request_controller = request_controller
 
@@ -59,7 +72,7 @@ class MainController(GeneralController):
         self.__car_controller = car_controller
 
     @user.setter
-    def user(self, user: User):
+    def user(self, user):
         self.__user = user
 
     def open_main_screen(self):
@@ -69,7 +82,7 @@ class MainController(GeneralController):
         self.request_controller.open()
 
     def open_user_controller(self):
-        self.user_controller.open()
+        self.user_controller.open_user_screen()
 
     def open_key_controller(self):
         self.key_controller.open()

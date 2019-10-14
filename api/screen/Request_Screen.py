@@ -2,12 +2,11 @@
 from api.screen.General_Screen import GeneralScreen
 
 # Models
-from api.controller.Request_Controller import RequestController
 
 
 class RequestScreen(GeneralScreen):
 
-    def __init__(self, request_controller: RequestController):
+    def __init__(self, request_controller):
         super().__init__(request_controller)
 
     @property
@@ -109,3 +108,6 @@ class RequestScreen(GeneralScreen):
                     string = (" | %s => %s | " % (key, request_array[key]))
                     print(string.center(60))
                 request_number = request_number + 1
+
+    def open_edit_menu(self):
+        pass
