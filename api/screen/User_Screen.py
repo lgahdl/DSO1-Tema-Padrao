@@ -94,8 +94,8 @@ class UserScreen(GeneralScreen):
         print(" --- Listagem de Usuário --- ")
         users = super().controller.users
         if users is not None:
+            user_number = 1
             for user in users:
-                user_number = 1
                 user_array = user.to_array()
                 print(" *** Usuário "+str(user_number)+" *** ")
                 for key in user_array:
