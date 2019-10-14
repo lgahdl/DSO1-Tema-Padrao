@@ -1,7 +1,7 @@
 # Models
+from ..model.Car import Car
 # Controllers
 from ..controller.Car_Controller import CarController
-from ..model.Car import Car
 # Views
 from ..screen.General_Screen import GeneralScreen
 

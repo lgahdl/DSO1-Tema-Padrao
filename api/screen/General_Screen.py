@@ -1,11 +1,19 @@
 from abc import ABC, abstractmethod
-from ..controller import General_Controller as ABCController
+from api.controller.General_Controller import GeneralController as ABCController
 
 
 class GeneralScreen(ABC):
 
     @abstractmethod
     def __init__(self, controller: ABCController):
+        self.__controller = controller
+
+    @property
+    def controller(self):
+        return self.__controller
+
+    @controller.setter
+    def controller(self, controller: ABCController):
         self.__controller = controller
 
     @abstractmethod

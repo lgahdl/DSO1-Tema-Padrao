@@ -1,18 +1,22 @@
 # Views
-from ..screen.General_Screen import GeneralScreen
-
-# Controllers
-from ..controller.General_Controller import GeneralController
+from api.screen.General_Screen import GeneralScreen
 
 
 class MainScreen(GeneralScreen):
 
-    def __init__(self, general_controller: GeneralController):
-        super.__init__()
-        self.__general_controller = general_controller
+    def __init__(self, main_controller):
+        super().__init__(main_controller)
 
-    @staticmethod
     def open(self):
-        id_user = raw_input('Olá, por favor, digite sua Matrícula')
-        user_phone = raw_input('Agora digite seu número de Telefone')
-        self.login()
+        id_user = input('Olá, por favor, digite sua Matrícula: ')
+        user_phone = input('Agora digite seu número de Telefone: ')
+        super().controller.login(id_user, user_phone)
+
+    def add(self, element):
+        pass
+
+    def delete(self, id_element):
+        pass
+
+    def edit(self, element, id_element):
+        pass
