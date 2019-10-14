@@ -23,14 +23,23 @@ class RequestScreen(GeneralScreen):
                             \n 1- Pedir uma chave \n 2- Devolver uma chave \n \
                              3- Deletar uma das Requisiçoes \n 4- Voltar ao menu principal")
         if(option == 1):
-            car_plate = input("Digite a placa do carro que você deseja ou digite 'Voltar' para voltar para a tela anterior")
+            car_plate = input("Digite a placa do carro(formato: ZZZ9999) que você deseja ou digite 'Voltar' para voltar para a tela anterior")
             if(car_plate == "Voltar"):
                 self.open()
             else:
                 self.add(self.__request_controller.main_controller.user, car_plate)
         elif(option == 2):
-
-
+            request = self.__request_controller.get_request_by_user(self.__request_controller.main_controller.user)
+            self.__request_controller.return_key(request)
+            print("Chave Devolvida")
+        elif(option == 3):
+            id_request = input("Digite o id da requisição que você deseja deletar:")
+            request = self.__request_controller.get_request_by_id(id_request)
+            self.__request_controller.delete_request(request)
+        elif(option == 4):
+            self.__request_controller.open_main_screen()
+        else:
+            self.open()
 
 
     def add(self, user, car_plate):

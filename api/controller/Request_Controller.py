@@ -89,3 +89,16 @@ class RequestController(GeneralController):
 
     def open_request_screen(self):
         self.__request_screen.open()
+
+    def return_key(self, request: Request):
+        for REQUEST in self.__requests:
+            if(request == REQUEST):
+                request.devolution_date = Date.today()
+                self.edit_request(request)
+            else:
+                return "ERROR 404 - Request not found"
+
+    def get_request_by_user(self, user: User):
+        for REQUEST in self.__requests:
+            if(user == REQUEST.user):
+                return REQUEST
