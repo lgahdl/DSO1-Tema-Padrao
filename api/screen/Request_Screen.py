@@ -18,7 +18,7 @@ class RequestScreen(GeneralScreen):
         super().controller = request_controller
 
     def open(self):
-        print(" User Screen ".center(60, "-"))
+        print(" Request Screen ".center(60, "-"))
         print(" | Você Deseja:  | ".center(60))
         print(" | Pedir uma chave [1]  | ".center(60))
         print(" | Devolver uma chave [2]  | ".center(60))
