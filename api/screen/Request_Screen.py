@@ -34,7 +34,7 @@ class RequestScreen(GeneralScreen):
             elif(option == 3):
                 self.open_delete_menu()
             elif(option == 4):
-                self.open_delete_menu()
+                self.open_list_menu()
             elif(option == 5):
                 super().controller.open_main_screen()
             else:
