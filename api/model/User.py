@@ -4,7 +4,6 @@ from ..model.Car import Car
 
 
 class User(GeneralModel):
-
     permission_role = {
         0: 'Estagiário',
         1: 'Empregado',
@@ -102,12 +101,9 @@ class User(GeneralModel):
             return True
         else:
             tier = car.car_tier
-            if tier >= 0:
-                return True
-            else:
-                able_to_request = False
-                for key in self.permission_role:
-                    permission = self.permission_role[key]
-                    if permission == self.user_role:
-                        able_to_request = tier > key
-                return not able_to_request
+            able_to_request = False
+            for key in self.permission_role:
+                permission = self.permission_role[key]
+                if permission == self.user_role:
+                    able_to_request = tier > key
+            return not able_to_request
