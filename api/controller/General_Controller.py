@@ -18,3 +18,7 @@ class GeneralController(ABC):
     @abstractmethod
     def open_main_screen(self):
         pass
+
+    @abstractmethod
+    def create_dependencies_by_list(self, dependencies_list: []):
+        pass

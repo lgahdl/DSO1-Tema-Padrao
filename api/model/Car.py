@@ -89,6 +89,7 @@ class Car(GeneralModel):
             'Modelo': self.car_model,
             'Marca': self.car_brand,
             'Ano': self.car_year,
+            'Quilometragem': self.car_kilometer,
             'Categoria': self.car_tier
         }
         return to_array
