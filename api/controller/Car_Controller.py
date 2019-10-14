@@ -6,8 +6,8 @@ from api.screen.Car_Screen import CarScreen
 from api.screen.Main_Screen import MainScreen
 
 # Controllers
-from api.controller.Main_Controller import GeneralController
-from api.controller.Main_Controller import MainController
+from ..controller.General_Controller import GeneralController
+from ..controller.Main_Controller import  MainController
 
 
 class CarController(GeneralController):
