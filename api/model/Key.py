@@ -35,3 +35,13 @@ class Key(GeneralModel):
     @car.setter
     def car(self, car: Car):
         self.__car = car
+
+    def to_array(self):
+        to_array = {
+            'Id': self.id,
+            'Placa do Carro': self.car.car_plate,
+            'Modelo': self.car.car_model
+            'Marca': self.car.car_brand,
+            'Ano': self.car.car_year,
+        }
+        return to_array
