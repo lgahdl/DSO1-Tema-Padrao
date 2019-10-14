@@ -49,8 +49,8 @@ class CarScreen(GeneralScreen):
         car_year = int(input(" | Ano | ".center(60)))
         car_kilometer = float(input(" | Quilometragem | ".center(60)))
 
-        print(" | Insira a Categoria | ")
-        print(" | | Funcional[1] Completo[2] Executivo[3] | |")
+        print(" | Insira a Categoria | ".center(60))
+        print(" | | Funcional[1] Completo[2] Executivo[3] | |".center(60))
         car_tier = None
         while car_tier is None:
             input_tier = int(input(" | Código | ".center(60)))
@@ -89,8 +89,8 @@ class CarScreen(GeneralScreen):
             elif key == 'Categoria':
                 string = (" | %s => %s | " % (key, car_array[key]))
                 print(string.center(60))
-                print(" | Insira a Categoria | ")
-                print(" | | Funcional[1] Completo[2] Executivo[3] | |")
+                print(" | Insira a Categoria | ".center(60))
+                print(" | | Funcional[1] Completo[2] Executivo[3] | |".center(60))
                 car_tier = None
                 while car_tier is None:
                     input_tier = int(input(" | Código | ".center(60)))

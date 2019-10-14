@@ -77,10 +77,12 @@ class CarController(GeneralController):
                 ) -> Car:
         car = Car(car_id, car_plate, car_model, car_brand, car_year, car_kilometer, car_tier)
         cars = self.__cars
+        if cars is None or cars == []:
+            self.__cars.append(car)
         for controller_car in cars:
-            if controller_car.id != car.id and \
-                    controller_car.car_plate != car.car_plate:
+            if controller_car.id != car.id and controller_car.car_plate != car.car_plate:
                 self.__cars.append(car)
+        return car
 
     def delete_car(self, car_id: int):
         cars = self.__cars

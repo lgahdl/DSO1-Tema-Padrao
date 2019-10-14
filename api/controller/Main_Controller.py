@@ -14,11 +14,11 @@ class MainController(GeneralController):
     def __init__(self):
         super().__init__()
         self.__user = None
-        self.create_screen()
         self.__user_controller = UserController(self)
         self.__request_controller = RequestController(self)
         self.__car_controller = CarController(self)
         self.__key_controller = KeyController(self)
+        self.create_screen()
         self.create_data()
 
     def create_data(self):
@@ -106,7 +106,7 @@ class MainController(GeneralController):
 
     def get_user(self, id_user: int):
         self.__user = self.user_controller.get_user_by_id(id_user)
-        if(self.__user):
+        if self.__user:
             return True
         else:
             return False
