@@ -81,6 +81,7 @@ class CarController(GeneralController):
             if controller_car.id != car.id and \
                     controller_car.car_plate != car.car_plate:
                 self.__cars.append(car)
+                
 
     def delete_car(self, car_id: int):
         cars = self.__cars
