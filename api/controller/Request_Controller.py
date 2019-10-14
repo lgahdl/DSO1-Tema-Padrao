@@ -70,19 +70,21 @@ class RequestController(GeneralController):
                                            'O Usuário não tem permissão para esse veículo'))
         elif(is_blocked):
             self.request_screen.show_is_blocked_message()
+        self.id_request += 1
 
     def open(self):
       self.__request_screen.open()
 
-    def delete_request(self, request: Request):
+    def delete_request(self, id_request: int):
         for REQUEST in self.__requests:
-            if (request == REQUEST):
+            if (id_request == REQUEST.id_request):
                 self.__requests.remove(REQUEST)
 
     def edit_request(self, request: Request, id_request: int):
         for REQUEST in self.__requests:
             if (REQUEST.id_request == id_request):
-                REQUEST = request
+                index = self.__requests.index(REQUEST)
+                self.__requests[index] = request
 
     def open_main_screen(self):
         self.__main_controller.open_main_screen()
@@ -98,7 +100,12 @@ class RequestController(GeneralController):
             else:
                 return "ERROR 404 - Request not found"
 
-    def get_request_by_user(self, user: User):
+    def get_unfinished_request_by_user(self, user: User):
         for REQUEST in self.__requests:
-            if(user == REQUEST.user):
+            if(user == REQUEST.user and REQUEST.devolution_date == None):
+                return REQUEST
+
+    def get_request_by_id(self, id_request: int):
+        for REQUEST in self.__requests:
+            if(id_request == REQUEST.id_request):
                 return REQUEST
