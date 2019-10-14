@@ -11,6 +11,7 @@ class Request(GeneralModel):
 
     def __init__(self, id_request: int, user: User, key: Key,
                  created_date: date, devolution_date: date, accepted: bool, reason: str):
+        super().__init__()
         self.__id_request = id_request
         self.__user = user
         self.__key = key
@@ -60,7 +61,7 @@ class Request(GeneralModel):
     """
 
     @id.setter
-    def id_request(self, id_request):
+    def id(self, id_request):
         self.__id_request = id_request
 
     @user.setter

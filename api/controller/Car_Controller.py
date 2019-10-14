@@ -1,9 +1,9 @@
 # Models
-from ..model.Car import Car
+from api.model.Car import Car
 
 # Views
-from ..screen.Car_Screen import CarScreen
-from ..screen.Main_Screen import MainScreen
+from api.screen.Car_Screen import CarScreen
+from api.screen.Main_Screen import MainScreen
 
 # Controllers
 from ..controller.General_Controller import GeneralController
@@ -47,27 +47,32 @@ class CarController(GeneralController):
 
     def add_car(self, car: Car):
         cars = self.__cars
-        for controllerCar in cars:
-            if controllerCar.id != car.id and \
-                    controllerCar.car_plate != car.car_plate:
+        for controller_car in cars:
+            if controller_car.id != car.id and \
+                    controller_car.car_plate != car.car_plate:
                 self.__cars.append(car)
 
     def delete_car(self, id_car: int):
         cars = self.__cars
-        for controllerCar in cars:
-            if controllerCar.id == id_car:
-                self.__cars.remove(controllerCar)
+        for controller_car in cars:
+            if controller_car.id == id_car:
+                self.__cars.remove(controller_car)
 
     def edit_car(self, car: Car, id_car: int):
         cars = self.__cars
-        for controllerCar in cars:
-            if controllerCar.id == id_car:
-                index = cars.index(controllerCar)
+        for controller_car in cars:
+            if controller_car.id == id_car:
+                index = cars.index(controller_car)
                 self.__cars[index] = car
+
+    def get_car_by_plate(self, plate: str):
+        cars = self.__cars
+        for controller_car in cars:
+            if controller_car.car_plate == plate:
+                return controller_car
 
     def open_car_screen(self):
         self.__car_screen.open()
 
-    @staticmethod
     def open_main_screen(self):
-        self.__main_controller.open_main_screen()
+        self.__main_controller.open_screen()

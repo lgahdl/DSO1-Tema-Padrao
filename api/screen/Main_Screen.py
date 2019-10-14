@@ -10,7 +10,6 @@ class MainScreen(GeneralScreen):
     def __init__(self, main_controller: MainController):
         super().__init__(main_controller)
 
-    @staticmethod
     def open(self):
         id_user = input('Olá, por favor, digite sua Matrícula')
         self.login(id_user)

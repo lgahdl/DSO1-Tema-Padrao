@@ -1,6 +1,3 @@
-# Utils
-from datetime import date as Date
-
 # Models
 from ..model.General_Model import GeneralModel
 from ..model.Car import Car
@@ -8,17 +5,25 @@ from ..model.Car import Car
 
 class User(GeneralModel):
 
-    def __init__(self, \
-                 id_user: int, \
-                 user_name: str, \
-                 user_birthday: Date, \
-                 user_role: str, \
-                 user_phone: int, \
-                 cars: []):
+    permission_role = {
+        0: 'Estagiário',
+        1: 'Empregado',
+        2: 'Gerente',
+        3: 'CEO'
+    }
+
+    def __init__(self,
+                 id_user: int,
+                 user_name: str,
+                 user_birthday,
+                 user_role: int,
+                 user_phone: int,
+                 cars: [] = []):
+        super().__init__()
         self.__id_user = id_user
         self.__user_name = user_name
         self.__user_birthday = user_birthday
-        self.__user_role = user_role
+        self.__user_role = self.permission_role[user_role]
         self.__user_phone = user_phone
         self.__cars = cars
 
@@ -82,7 +87,27 @@ class User(GeneralModel):
     def cars(self, cars: str):
         self.__cars = cars
 
+    def to_array(self):
+        to_array = {
+            'Id': self.id,
+            'Nome': self.user_name,
+            'Data de Nascimento': self.user_birthday,
+            'Cargo': self.user_role,
+            'Telefone': self.user_phone,
+        }
+        return to_array
+
     def check_car_permission(self, car: Car):
-        pass
-
-
+        if self.__user_role == self.permission_role[3]:
+            return True
+        else:
+            tier = car.car_tier
+            if tier >= 0:
+                return True
+            else:
+                able_to_request = False
+                for key in self.permission_role:
+                    permission = self.permission_role[key]
+                    if permission == self.user_role:
+                        able_to_request = tier > key
+                return not able_to_request
