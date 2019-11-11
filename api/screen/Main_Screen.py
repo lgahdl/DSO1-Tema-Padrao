@@ -1,6 +1,6 @@
 # Views
 from ..screen.General_Screen import GeneralScreen
-
+from PySimpleGUI import PySimpleGUI as sg
 
 # Controller
 
@@ -9,6 +9,8 @@ class MainScreen(GeneralScreen):
 
     def __init__(self, main_controller):
         super().__init__(main_controller)
+        self.__window = None
+        self.init_components()
 
     def open(self):
         if super().controller.id_user_logged != 0:
@@ -21,6 +23,24 @@ class MainScreen(GeneralScreen):
                     self.run()
                 else:
                     print("Matricula Invalida".center(60, "-"))
+
+    def init_components(self):
+        sg.ChangeLookAndFeel('Reddit')
+
+        layout = [
+            [sg.Text('Matrícula: '), sg.InputText('matricula')],
+            [sg.Submit(), sg.Cancel()]
+        ]
+
+        self.__window = sg.Window('Tela Principal').Layout(layout)
+
+    def open_gui(self):
+        button, values = self.__window.read()
+
+        return button, values
+
+    def close_gui(self):
+        self.__window.Close()
 
     def run(self):
         print(" Menu Inicial ".center(60, "-"))
