@@ -90,13 +90,13 @@ class MainController(GeneralController):
         self.__user = user
 
     def open_main_screen(self):
-        self.main_screen.open()
-
-    def open_request_controller(self):
-        self.request_controller.open()
+        self.main_screen.open_gui('login')
 
     def open_user_controller(self):
         self.user_controller.open_user_screen()
+
+    def open_request_controller(self):
+        self.request_controller.open()
 
     def open_key_controller(self):
         self.key_controller.open_key_screen()

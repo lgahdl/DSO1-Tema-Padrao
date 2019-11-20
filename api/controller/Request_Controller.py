@@ -106,8 +106,8 @@ class RequestController(GeneralController):
     def return_key(self, request: Request):
         for REQUEST in self.__requests:
             if (request.id_request == REQUEST.id_request):
-                request.devolution_date = Date.today()
-                self.edit_request(request, request.id_request)
+                new_request = Request(request.id_request, self.main_controller.user, request.key, request.created_date, Date.today(), True, '')
+                self.edit_request(new_request, request.id_request)
             else:
                 return "ERROR 404 - Request not found"
 
