@@ -78,7 +78,7 @@ class KeyController(GeneralController):
     ##def edit_key(self, key: Key, id_key: int):
     ##    keys = self.__keys
     ##    for KEY in keys:
-    ##        if KEY.id == id_key:
+    ##        if KEY.id_key == id_key:
     ##            index = keys.index(KEY)
     ##            self.__keys[index] = key
 

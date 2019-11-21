@@ -7,11 +7,10 @@ from ..model.Key import Key
 from ..model.User import User
 
 
-class Request(GeneralModel):
+class Request():
 
     def __init__(self, id_request: int, user: User, key: Key,
                  created_date: date, devolution_date: date, accepted: bool, reason: str):
-        super().__init__()
         self.__id_request = id_request
         self.__user = user
         self.__key = key
@@ -27,7 +26,7 @@ class Request(GeneralModel):
     """
 
     @property
-    def id(self):
+    def id_request(self):
         return self.__id_request
 
     @property
@@ -60,7 +59,7 @@ class Request(GeneralModel):
     |--------------|
     """
 
-    @id.setter
+    @id_request.setter
     def id_request(self, id_request):
         self.__id_request = id_request
 
@@ -94,7 +93,7 @@ class Request(GeneralModel):
         else:
             string_accepted = "NEGADO"
         to_array = {
-            'id': self.id_request,
+            'ID': self.id_request,
             'Carro': self.key.car.car_model,
             'Dia da Requisicao': self.created_date,
             'Dia da Devolucao': self.devolution_date,

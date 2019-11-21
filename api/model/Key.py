@@ -3,7 +3,7 @@ from ..model.Car import Car
 from ..model.General_Model import GeneralModel
 
 
-class Key(GeneralModel):
+class Key():
     def __init__(self, id_key: int, car: Car):
         self.__id_key = id_key
         self.__car = car
@@ -15,7 +15,7 @@ class Key(GeneralModel):
     """
 
     @property
-    def id(self):
+    def id_key(self):
         return self.__id_key
 
     @property
@@ -28,8 +28,8 @@ class Key(GeneralModel):
     |--------------|
     """
 
-    @id.setter
-    def id(self, id_key: int):
+    @id_key.setter
+    def id_key(self, id_key: int):
         self.__id_key = id_key
 
     @car.setter
@@ -38,7 +38,7 @@ class Key(GeneralModel):
 
     def to_array(self):
         to_array = {
-            'Id': self.id,
+            'Id': self.id_key,
             'Placa do Carro': self.car.car_plate,
             'Modelo': self.car.car_model,
             'Marca': self.car.car_brand,

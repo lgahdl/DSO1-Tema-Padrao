@@ -80,20 +80,20 @@ class CarController(GeneralController):
         if cars is None or cars == []:
             self.__cars.append(car)
         for controller_car in cars:
-            if controller_car.id != car.id and controller_car.car_plate != car.car_plate:
+            if controller_car.id_car != car.id_car and controller_car.car_plate != car.car_plate:
                 self.__cars.append(car)
         return car
 
     def delete_car(self, car_id: int):
         cars = self.__cars
         for controller_car in cars:
-            if controller_car.id == car_id:
+            if controller_car.id_car == car_id:
                 self.__cars.remove(controller_car)
 
     def edit_car(self, car: Car, car_id: int):
         cars = self.__cars
         for controller_car in cars:
-            if controller_car.id == car_id:
+            if controller_car.id_car == car_id:
                 index = cars.index(controller_car)
                 self.__cars[index] = car
 
@@ -106,7 +106,7 @@ class CarController(GeneralController):
     def get_car_by_id(self, car_id):
         cars = self.__cars
         for controller_car in cars:
-            if controller_car.id == car_id:
+            if controller_car.id_car == car_id:
                 return controller_car
 
     def open_car_screen(self):

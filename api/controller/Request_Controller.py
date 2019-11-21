@@ -84,7 +84,7 @@ class RequestController(GeneralController):
         self.id_request += 1
 
     def open(self):
-        self.__request_screen.open()
+        self.__request_screen.open_gui('menu')
 
     def delete_request(self, id_request: int):
         for REQUEST in self.__requests:

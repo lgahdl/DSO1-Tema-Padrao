@@ -1,12 +1,11 @@
 from api.model.General_Model import GeneralModel
 
 
-class Car(GeneralModel):
+class Car():
 
-    def __init__(self, id: int, car_plate: str, car_model: str, car_brand: str,
+    def __init__(self, id_car: int, car_plate: str, car_model: str, car_brand: str,
                  car_year: int, car_kilometer: float, car_tier: int):
-        super().__init__()
-        self.__id_car = id
+        self.__id_car = id_car
         self.__car_plate = car_plate
         self.__car_model = car_model
         self.__car_brand = car_brand
@@ -21,7 +20,7 @@ class Car(GeneralModel):
     """
 
     @property
-    def id(self):
+    def id_car(self):
         return self.__id_car
 
     @property
@@ -54,9 +53,9 @@ class Car(GeneralModel):
     |--------------|
     """
 
-    @id.setter
-    def id(self, id: int):
-        self.__id_car = id
+    @id_car.setter
+    def id_car(self, id_car: int):
+        self.__id_car = id_car
 
     @car_plate.setter
     def car_plate(self, plate: str):
@@ -84,7 +83,7 @@ class Car(GeneralModel):
 
     def to_array(self):
         to_array = {
-            'Id': self.id,
+            'Id': self.id_car,
             'Placa': self.car_plate,
             'Modelo': self.car_model,
             'Marca': self.car_brand,

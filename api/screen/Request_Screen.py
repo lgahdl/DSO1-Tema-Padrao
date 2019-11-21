@@ -4,10 +4,15 @@ from api.screen.General_Screen import GeneralScreen
 # Models
 from api.model.Request import Request
 
+# Utils
+from PySimpleGUI import PySimpleGUI as sg
+
+
 class RequestScreen(GeneralScreen):
 
     def __init__(self, request_controller):
         super().__init__(request_controller)
+        self.init_menu_components()
 
     @property
     def request_controller(self):
@@ -26,7 +31,8 @@ class RequestScreen(GeneralScreen):
         print(" | Listar as Requisicoes [4]  | ".center(60))
         print(" | Voltar Para o Menu[5] | ".center(60))
         while True:
-            option = int(input("Digite o numero que corresponde ao que voce deseja fazer:".center(60)))
+            option = int(
+                input("Digite o numero que corresponde ao que voce deseja fazer:".center(60)))
             if(option == 1):
                 self.open_add_menu()
             elif(option == 2):
@@ -40,6 +46,177 @@ class RequestScreen(GeneralScreen):
             else:
                 print("Opcao Invalida!!!".center(60, "-"))
 
+    def init_menu_components(self):
+        sg.ChangeLookAndFeel('Reddit')
+
+        layout = [
+            [sg.Text('Tela de Requisição')],
+            [sg.Text('Você deseja:')],
+            [sg.Button('Inserir', key='INSERT_BUTTON')],
+            [sg.Button('Deletar', key='DELETE_BUTTON')],
+            [sg.Button('Editar', key='EDIT_BUTTON')],
+            [sg.Button('Listar', key='LIST_BUTTON')],
+            [],
+            [sg.Button('Sair', key='EXIT_BUTTON')],
+        ]
+        self.__window = sg.Window('Requisições').Layout(layout)
+
+    def init_insert_components(self):
+        
+        user = super().controller.main_controller.user
+
+        sg.ChangeLookAndFeel('Reddit')
+
+        layout = [
+            [sg.Text('Tela de Adição de Requisição', size=[30, 1])],
+            [sg.Text('Requisição para o Usuário:', size=[30,1])],
+            [sg.Text('Matricula', size=[30, 1]),
+             sg.Text(user.id_user, size=[30, 1])],
+            [sg.Text('Nome', size=[30, 1]), sg.Text(user.user_name, size=[30, 1])],
+            [sg.Text('Data de Nascimento', size=[30, 1]),
+             sg.Text(user.user_birthday, size=[30, 1])],
+            [sg.Text('Telefone', size=[30, 1]),
+             sg.Text(user.user_phone, size=[30, 1])],
+            [sg.Text('Cargo([0]Estagiário, [1]Empregado, [2]Gerente, [3]CEO)', size=[30, 1]), sg.Text(
+                (user.user_role), size=[30, 1])],
+            [],
+            [sg.Submit(), sg.Cancel()]
+            [sg.Text(
+                'Digite a Placa do carro que você deseja:', size=[20, 1])],
+            sg.InputText('XXX9999',[30,1])
+        ]
+        self.__window = sg.Window('Adição de Requisições').Layout(layout)
+
+        self.open_gui('insert')
+
+    def init_delete_components(self):
+
+        sg.ChangeLookAndFeel('Reddit')
+
+        layout = [
+            [sg.Text('Tela de Remoção de Requisição')],
+            [sg.Text(
+                'Digite o ID da Requisição que você deseja remover:', size=[30, 1])],
+            [sg.Text('ID:', size=[15, 1]),
+             sg.InputText('', size=[30, 1])],
+            [],
+            [sg.Submit(), sg.Cancel()],
+        ]
+        self.__window = sg.Window('Requisições').Layout(layout)
+
+        self.open_gui('delete')
+
+    def init_edit_components(self):
+
+        sg.ChangeLookAndFeel('Reddit')
+
+        layout = [
+            [sg.Text('Tela de Edição de Requisição', size=[30, 1])],
+            [sg.Text(
+                'Requisições não oferecem essa opção!', size=[30, 1])],
+            [],
+            [sg.Cancel()]
+        ]
+        self.__window = sg.Window('Edição de Requisições').Layout(layout)
+
+        self.open_gui('edit')
+
+    def init_list_components(self):
+
+        requests = super().controller.requests
+        request_layout_array = []
+        for request in requests:
+            print(request.id_request)
+            request_layout_array.append(
+                [sg.Text('ID', size=[15, 1]),
+                 sg.Text(request.id_request, size=[30, 1])])
+            request_layout_array.append([sg.Text('ID', size=[15, 1]),
+                                      sg.Text(user.user_name, size=[30, 1])])
+            user_layout_array.append([sg.Text('Data de Nascimento', size=[15, 1]),
+                                      sg.Text(user.user_birthday, size=[30, 1])])
+            user_layout_array.append([sg.Text('Telefone', size=[15, 1]),
+                                      sg.Text(user.user_phone, size=[30, 1])])
+            user_layout_array.append([sg.Text('Cargo', size=[15, 1]),
+                                      sg.Text(user.user_role, size=[30, 1])])
+        user_layout_array.append(
+            [sg.OK()]
+        )
+
+        sg.ChangeLookAndFeel('Reddit')
+
+        layout = user_layout_array
+
+        self.__window = sg.Window('Requisições').Layout(layout)
+
+        self.open_gui('list')
+
+    def open_gui(self, screen_type='menu'):
+        print(screen_type)
+        if(screen_type == 'menu'):
+            event = self.__window.Read()
+            values = [0]
+            if(event[0] == 'INSERT_BUTTON'):
+                values[0] = -2
+            elif(event[0] == 'DELETE_BUTTON'):
+                values[0] = -3
+            elif(event[0] == 'EDIT_BUTTON'):
+                values[0] = -4
+            elif(event[0] == 'LIST_BUTTON'):
+                values[0] = -5
+            elif(event[0] == 'EXIT_BUTTON'):
+                values[0] = -1
+
+        elif(screen_type == 'insert'):
+            button, values = self.__window.Read()
+            print(values)
+            return self.add_user_with_array(values)
+
+        elif(screen_type == 'delete'):
+            button, values = self.__window.Read()
+            print(values)
+            deleted = self.delete(int(values[0]))
+            if deleted:
+                sg.Popup("Requisição Apagada do Sistema")
+                self.init_menu_components()
+                self.open_gui('menu')
+            else:
+                sg.Popup("Não foi possível apagar a Requisição !!!")
+                self.init_menu_components()
+                self.open_gui('menu')
+
+        elif(screen_type == 'edit'):
+            button, values = self.__window.Read()
+            print(values)
+            print(button)
+            super().controller.edit_user(values)
+            
+            self.init_menu_components()
+            self.open_gui('menu')
+
+        elif(screen_type == 'list'):
+            button, values = self.__window.Read()
+            print(values)
+            self.init_menu_components()
+            self.open_gui('menu')
+
+        if(isinstance(values[0], int) and values[0] <= -1 and values[0] >= -5):
+            if(values[0] == -1):
+                sg.Popup('Você Fechou o Programa')
+                self.close_gui()
+            elif(values[0] == -2):
+                self.init_insert_components()
+            elif(values[0] == -3):
+                self.init_delete_components()
+            elif(values[0] == -4):
+                self.init_edit_components()
+            elif(values[0] == -5):
+                self.init_list_components()
+        else:
+            sg.Popup('Comando Invalido')
+            self.close_gui()
+
+    def close_gui(self):
+        self.__window.Close()
 
     def add(self, car_plate):
         return super().controller.add_request(car_plate)

@@ -29,7 +29,7 @@ class MainScreen(GeneralScreen):
         sg.ChangeLookAndFeel('Reddit')
 
         layout = [
-            [sg.Text('Matrícula: '), sg.InputText('matricula')],
+            [sg.Text('Matrícula: '), sg.InputText('')],
             [sg.Submit(), sg.Cancel()]
         ]
 
@@ -56,7 +56,6 @@ class MainScreen(GeneralScreen):
             button, values = self.__window.Read()
         else:
             event = self.__window.Read()
-            print(event)
             values = [0]
             if(event[0] == 'USER_BUTTON'):
                 values[0] = -2
@@ -90,7 +89,6 @@ class MainScreen(GeneralScreen):
         else:
             sg.Popup('Matricula Invalida')
             self.open_gui('login')
-        return button, values
 
     def close_gui(self):
         self.__window.Close()
