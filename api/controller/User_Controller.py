@@ -1,24 +1,19 @@
 # Utils
 from datetime import date as Date
-from enum import Enum
-
-# Models
-from api.model.User import User
-
-# Views
-from api.screen.User_Screen import UserScreen
 
 # Controllers
 from api.controller.General_Controller import GeneralController
-
 # DAO
 from api.data.User_DAO import UserDAO
+# Models
+from api.model.User import User
+# Views
+from api.screen.User_Screen import UserScreen
 
 user_role_json = {'Estagiário': 0, 'Empregado': 1, 'Gerente': 2, 'CEO': 3}
 
 
 class UserController(GeneralController):
-  
 
     def __init__(self, main_controller, users=None):
         super().__init__()
@@ -58,12 +53,12 @@ class UserController(GeneralController):
             )
 
     def add_user(self,
-                id_user: int,
-                user_name: str,
-                user_birthday: Date,
-                user_role: int,
-                user_phone: int,
-                cars: [] = []) -> User:
+                 id_user: int,
+                 user_name: str,
+                 user_birthday: Date,
+                 user_role: int,
+                 user_phone: int,
+                 cars: [] = []) -> User:
         user = User(id_user, user_name, user_birthday,
                     user_role, user_phone, cars)
         users = self.__users
@@ -77,9 +72,9 @@ class UserController(GeneralController):
         return user
 
     def add_user_with_array(
-        self,
-        user_array: [] = [],
-        cars: [] = []
+            self,
+            user_array: [] = [],
+            cars: [] = []
     ) -> User:
         user = User(user_array[0], user_array[1],
                     user_array[2], user_role_json[user_array[4]], user_array[3], cars)
@@ -94,23 +89,18 @@ class UserController(GeneralController):
         return user
 
     def delete_user(self, id_user: int):
-        users = self.__users
-        for controller_user in users:
-            if controller_user.id_user == id_user:
-                self.__users.remove(controller_user)
-                return True
+        return self.__user_dao.remove(id_user)
 
     def edit_user(self, values):
-        users = self.__users
-        user = self.get_user_by_id(int(values[0]))
+        user = self.__user_dao.get(int(values[0]))
+
         user.user_name = values[1]
         user.user_birthday = values[2]
         user.user_phone = values[3]
         user.user_role = user_role_json[values[4]]
-        for controller_user in users:
-            if controller_user.id_user == user.id_user:
-                index = users.index(controller_user)
-                self.__users[index] = user
+
+        self.__user_dao.remove(user.id_user)
+        self.__user_dao.add(user.id_user, user)
 
     def open_user_screen(self):
         self.__user_screen.open_gui('menu')

@@ -239,66 +239,66 @@ class RequestScreen(GeneralScreen):
     def show_is_blocked_message(self):
         print("Você tentou mais de 3 vezes veículos não permitidos, você está bloqueado")
 
-    def open_add_menu(self):
-        print(" Nova Requisicao".center(60, "-"))
-        user_array = super().controller.main_controller.user.to_array()
-        print((" *** Requisicao para o Usuario: *** ").center(60))
-        for key in user_array:
-            string = (" | %s => %s | " % (key, user_array[key]))
-            print(string.center(60))
-        car_plate = input(
-            "---Digite a placa do carro(formato: ZZZ9999) que você deseja requirir ou digite 'Voltar' para voltar para a tela anterior---".center(60))
-        if (car_plate == "Voltar"):
-            self.open()
-        else:
-            return self.add(car_plate)
+    # def open_add_menu(self):
+    #     print(" Nova Requisicao".center(60, "-"))
+    #     user_array = super().controller.main_controller.user.to_array()
+    #     print((" *** Requisicao para o Usuario: *** ").center(60))
+    #     for key in user_array:
+    #         string = (" | %s => %s | " % (key, user_array[key]))
+    #         print(string.center(60))
+    #     car_plate = input(
+    #         "---Digite a placa do carro(formato: ZZZ9999) que você deseja requirir ou digite 'Voltar' para voltar para a tela anterior---".center(60))
+    #     if (car_plate == "Voltar"):
+    #         self.open()
+    #     else:
+    #         return self.add(car_plate)
 
-    def open_delete_menu(self):
-        print(" Remoção de Requisicao ".center(60, "-"))
-        id_request = int(input(" | Insira o ID da requisicao:  |".center(60)))
-        deleted = self.delete(id_request)
-        if deleted:
-            print(" | Requisicao Apagada do Sistema | ".center(60))
-        else:
-            print(" !!! Não foi possível apagar a Requisicao !!!".center(60))
+    # def open_delete_menu(self):
+    #     print(" Remoção de Requisicao ".center(60, "-"))
+    #     id_request = int(input(" | Insira o ID da requisicao:  |".center(60)))
+    #     deleted = self.delete(id_request)
+    #     if deleted:
+    #         print(" | Requisicao Apagada do Sistema | ".center(60))
+    #     else:
+    #         print(" !!! Não foi possível apagar a Requisicao !!!".center(60))
 
-    def open_return_key_screen(self):
-        print(" Devolucao".center(60, "-"))
-        user_array = super().controller.main_controller.user.to_array()
-        print((" *** Devolucao do Usuario: *** ").center(60))
-        for key in user_array:
-            string = (" | %s => %s | " % (key, user_array[key]))
-            print(string.center(60))
-        request = super().controller.get_unfinished_request_by_user(
-            super().controller.main_controller.user)
-        if(isinstance(request, Request)):
-            super().controller.return_key(request)
-            print("Chave Devolvida")
-            print(request)
-            finished_request = super().controller.get_request_by_id(request.id_request)
-            request_array = finished_request.to_array()
-            for key in request_array:
-                string = (" | %s => %s | " % (key, request_array[key]))
-                print(string.center(60))
-        else:
-            print("Voce nao tem chave para devolver")
+    # def open_return_key_screen(self):
+    #     print(" Devolucao".center(60, "-"))
+    #     user_array = super().controller.main_controller.user.to_array()
+    #     print((" *** Devolucao do Usuario: *** ").center(60))
+    #     for key in user_array:
+    #         string = (" | %s => %s | " % (key, user_array[key]))
+    #         print(string.center(60))
+    #     request = super().controller.get_unfinished_request_by_user(
+    #         super().controller.main_controller.user)
+    #     if(isinstance(request, Request)):
+    #         super().controller.return_key(request)
+    #         print("Chave Devolvida")
+    #         print(request)
+    #         finished_request = super().controller.get_request_by_id(request.id_request)
+    #         request_array = finished_request.to_array()
+    #         for key in request_array:
+    #             string = (" | %s => %s | " % (key, request_array[key]))
+    #             print(string.center(60))
+    #     else:
+    #         print("Voce nao tem chave para devolver")
 
-    def open_list_menu(self):
-        print(" Listagem de Requisicoes ".center(60, "-"))
-        requests = super().controller.requests
-        if requests is not None:
-            request_number = 1
-            for request in requests:
-                request_array = request.to_array()
-                print((" *** Requisicao " + str(request_number) + " *** ").center(60))
-                for key in request_array:
-                    string = (" | %s => %s | " % (key, request_array[key]))
-                    print(string.center(60))
-                request_number = request_number + 1
+    # def open_list_menu(self):
+    #     print(" Listagem de Requisicoes ".center(60, "-"))
+    #     requests = super().controller.requests
+    #     if requests is not None:
+    #         request_number = 1
+    #         for request in requests:
+    #             request_array = request.to_array()
+    #             print((" *** Requisicao " + str(request_number) + " *** ").center(60))
+    #             for key in request_array:
+    #                 string = (" | %s => %s | " % (key, request_array[key]))
+    #                 print(string.center(60))
+    #             request_number = request_number + 1
 
-    def open_edit_menu(self):
-        print("Requisicoes não oferecem essa opção")
-        self.open()
+    # def open_edit_menu(self):
+    #     print("Requisicoes não oferecem essa opção")
+    #     self.open()
 
     def back_handler(self):
         self.close_gui()

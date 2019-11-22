@@ -2,6 +2,7 @@
 from ..screen.General_Screen import GeneralScreen
 from PySimpleGUI import PySimpleGUI as sg
 
+
 # Controller
 
 
@@ -37,7 +38,7 @@ class MainScreen(GeneralScreen):
 
     def init_menu_components(self):
         sg.ChangeLookAndFeel('Reddit')
-        
+
         layout = [
             [sg.Text('Menu Principal')],
             [sg.Text('Você deseja ir à tela de:')],
@@ -52,35 +53,35 @@ class MainScreen(GeneralScreen):
         self.open_gui('menu')
 
     def open_gui(self, screen_type: str):
-        if(screen_type == 'login'):
+        if screen_type == 'login':
             button, values = self.__window.Read()
         else:
             event = self.__window.Read()
             values = [0]
-            if(event[0] == 'USER_BUTTON'):
+            if event[0] == 'USER_BUTTON':
                 values[0] = -2
-            elif(event[0] == 'REQUEST_BUTTON'):
+            elif event[0] == 'REQUEST_BUTTON':
                 values[0] = -3
-            elif(event[0] == 'KEY_BUTTON'):
+            elif event[0] == 'KEY_BUTTON':
                 values[0] = -4
-            elif(event[0] == 'CAR_BUTTON'):
+            elif event[0] == 'CAR_BUTTON':
                 values[0] = -5
-            elif(event[0] == 'EXIT_BUTTON'):
+            elif event[0] == 'EXIT_BUTTON':
                 sg.Popup('Você Está saindo do programa')
                 self.close_gui()
-        if(self.login(int(values[0]))):
+        if self.login(int(values[0])):
             super().controller.id_user_logged = values[0]
             self.run()
-        elif(values[0]<=-1 and values[0]>=-5):
-            if(values[0] == -1):
+        elif -1 >= values[0] >= -5:
+            if values[0] == -1:
                 sg.Popup('Você Fechou o Programa')
-            elif(values[0] == -2):
+            elif (values[0] == -2):
                 super().controller.open_user_controller()
-            elif(values[0] == -3):
+            elif (values[0] == -3):
                 super().controller.open_request_controller()
-            elif(values[0] == -4):
+            elif (values[0] == -4):
                 super().controller.open_key_controller()
-            elif(values[0] == -5):
+            elif (values[0] == -5):
                 super().controller.open_car_controller()
         else:
             sg.Popup('Matricula Invalida')
