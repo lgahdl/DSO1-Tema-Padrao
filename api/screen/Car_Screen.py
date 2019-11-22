@@ -76,7 +76,8 @@ class CarScreen(GeneralScreen):
                 'Digite os dados do Carro que você deseja adicionar:', size=[30, 1])],
             [sg.Text('Matricula', size=[15, 1]),
              sg.InputText('10', size=[30, 1])],
-            [sg.Text('Placa', size=[15, 1]), sg.InputText('POO9990', size=[30, 1])],
+            [sg.Text('Placa', size=[15, 1]),
+             sg.InputText('POO9990', size=[30, 1])],
             [sg.Text('Modelo', size=[15, 1]),
              sg.InputText('Monza', size=[30, 1])],
             [sg.Text('Marca', size=[15, 1]),
@@ -201,15 +202,19 @@ class CarScreen(GeneralScreen):
             elif(event[0] == 'LIST_BUTTON'):
                 values[0] = -5
             elif(event[0] == 'EXIT_BUTTON'):
-                values[0] = -1
+                super().controller.open_main_screen()
 
         elif(screen_type == 'insert'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             return self.add_car_with_array(values)
 
         elif(screen_type == 'delete'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             deleted = self.delete(int(values[0]))
             print(deleted)
@@ -224,6 +229,8 @@ class CarScreen(GeneralScreen):
 
         elif(screen_type == 'edit'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             super().controller.edit_car(values)
 
@@ -232,15 +239,14 @@ class CarScreen(GeneralScreen):
 
         elif(screen_type == 'list'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             self.init_menu_components()
             self.open_gui('menu')
 
         if(isinstance(values[0], int) and values[0] <= -1 and values[0] >= -5):
-            if(values[0] == -1):
-                sg.Popup('Você Fechou o Programa')
-                self.close_gui()
-            elif(values[0] == -2):
+            if(values[0] == -2):
                 self.init_insert_components()
             elif(values[0] == -3):
                 self.init_delete_components()
@@ -255,86 +261,91 @@ class CarScreen(GeneralScreen):
     def close_gui(self):
         self.__window.Close()
 
-    # def open_add_menu(self):
-    #     print(" Cadastro de Carro ".center(60, "-"))
+    def open_add_menu(self):
+        print(" Cadastro de Carro ".center(60, "-"))
 
-    #     car_id = int(input(" | Código de Identificação | ".center(60)))
-    #     car_plate = input(" | Placa | ".center(60))
-    #     car_model = input(" | Modelo | ".center(60))
-    #     car_brand = input(" | Marca | ".center(60))
-    #     car_year = int(input(" | Ano | ".center(60)))
-    #     car_kilometer = float(input(" | Quilometragem | ".center(60)))
+        car_id = int(input(" | Código de Identificação | ".center(60)))
+        car_plate = input(" | Placa | ".center(60))
+        car_model = input(" | Modelo | ".center(60))
+        car_brand = input(" | Marca | ".center(60))
+        car_year = int(input(" | Ano | ".center(60)))
+        car_kilometer = float(input(" | Quilometragem | ".center(60)))
 
-    #     print(" | Insira a Categoria | ".center(60))
-    #     print(" | | Funcional[1] Completo[2] Executivo[3] | |".center(60))
-    #     car_tier = None
-    #     while car_tier is None:
-    #         input_tier = int(input(" | Código | ".center(60)))
-    #         if 1 <= input_tier <= 3:
-    #             car_tier = input_tier
-    #         else:
-    #             print(" !!!Opção Inválida!!! ".center(60))
-    #     return self.add(car_id, car_plate, car_model, car_brand, car_year, car_kilometer, car_tier)
+        print(" | Insira a Categoria | ".center(60))
+        print(" | | Funcional[1] Completo[2] Executivo[3] | |".center(60))
+        car_tier = None
+        while car_tier is None:
+            input_tier = int(input(" | Código | ".center(60)))
+            if 1 <= input_tier <= 3:
+                car_tier = input_tier
+            else:
+                print(" !!!Opção Inválida!!! ".center(60))
+        return self.add(car_id, car_plate, car_model, car_brand, car_year, car_kilometer, car_tier)
 
-    # def open_delete_menu(self):
-    #     print(" Remoção de Carro ".center(60))
-    #     car_id = int(input(" | Insira o Código do Carro | "))
-    #     deleted = self.delete(car_id)
-    #     if deleted:
-    #         print(" | Carro Apagado do Sistema | ".center(60))
-    #     else:
-    #         print(" !!! Não foi possível apagar o carro !!!".center(60))
+    def open_delete_menu(self):
+        print(" Remoção de Carro ".center(60))
+        car_id = int(input(" | Insira o Código do Carro | "))
+        deleted = self.delete(car_id)
+        if deleted:
+            print(" | Carro Apagado do Sistema | ".center(60))
+        else:
+            print(" !!! Não foi possível apagar o carro !!!".center(60))
 
-    # def open_edit_menu(self):
-    #     print(" Edição de Carro ".center(60, "-"))
-    #     car_id = int(input(" | Insira o Código do Carro | "))
-    #     car = super().controller.get_car_by_id(car_id)
-    #     car_array = car.to_array()
-    #     for key in car_array:
-    #         if key == 'Placa':
-    #             string = (" | %s => %s | " % (key, car_array[key]))
-    #             print(string.center(60))
-    #             car_plate = input(" Nova Placa ".center(60)) or car.car_plate
-    #             car.car_plate = car_plate
-    #         elif key == 'Quilometragem':
-    #             string = (" | %s => %s | " % (key, car_array[key]))
-    #             print(string.center(60))
-    #             car_kilometer = input(
-    #                 " Nova Quilometragem ".center(60)) or car.car_kilometer
-    #             car.car_kilometer = car_kilometer
-    #         elif key == 'Categoria':
-    #             string = (" | %s => %s | " % (key, car_array[key]))
-    #             print(string.center(60))
-    #             print(" | Insira a Categoria | ".center(60))
-    #             print(
-    #                 " | | Funcional[1] Completo[2] Executivo[3] | |".center(60))
-    #             car_tier = None
-    #             while car_tier is None:
-    #                 input_tier = int(input(" | Código | ".center(60)))
-    #                 if 1 <= input_tier <= 3 and input_tier is not None:
-    #                     car_tier = input_tier
-    #                 else:
-    #                     print(" !!!Opção Inválida!!! ".center(60))
-    #                 if car_tier is None:
-    #                     car_tier = car.car_tier
-    #             car.car_tier = car_tier
-    #         else:
-    #             string = (" | %s => %s | " % (key, car_array[key]))
-    #             print(string.center(60))
-    #     return super().controller.edit_car(car, car_id)
+    def open_edit_menu(self):
+        print(" Edição de Carro ".center(60, "-"))
+        car_id = int(input(" | Insira o Código do Carro | "))
+        car = super().controller.get_car_by_id(car_id)
+        car_array = car.to_array()
+        for key in car_array:
+            if key == 'Placa':
+                string = (" | %s => %s | " % (key, car_array[key]))
+                print(string.center(60))
+                car_plate = input(" Nova Placa ".center(60)) or car.car_plate
+                car.car_plate = car_plate
+            elif key == 'Quilometragem':
+                string = (" | %s => %s | " % (key, car_array[key]))
+                print(string.center(60))
+                car_kilometer = input(
+                    " Nova Quilometragem ".center(60)) or car.car_kilometer
+                car.car_kilometer = car_kilometer
+            elif key == 'Categoria':
+                string = (" | %s => %s | " % (key, car_array[key]))
+                print(string.center(60))
+                print(" | Insira a Categoria | ".center(60))
+                print(
+                    " | | Funcional[1] Completo[2] Executivo[3] | |".center(60))
+                car_tier = None
+                while car_tier is None:
+                    input_tier = int(input(" | Código | ".center(60)))
+                    if 1 <= input_tier <= 3 and input_tier is not None:
+                        car_tier = input_tier
+                    else:
+                        print(" !!!Opção Inválida!!! ".center(60))
+                    if car_tier is None:
+                        car_tier = car.car_tier
+                car.car_tier = car_tier
+            else:
+                string = (" | %s => %s | " % (key, car_array[key]))
+                print(string.center(60))
+        return super().controller.edit_car(car, car_id)
 
-    # def open_list_menu(self):
-    #     print(" Listagem de Carros ".center(60, "-"))
-    #     cars = super().controller.cars
-    #     if cars is not None:
-    #         car_number = 1
-    #         for car in cars:
-    #             car_array = car.to_array()
-    #             print((" *** Carro "+str(car_number)+" *** ").center(60))
-    #             for key in car_array:
-    #                 string = (" | %s => %s | " % (key, car_array[key]))
-    #                 print(string.center(60))
-    #             car_number = car_number + 1
+    def open_list_menu(self):
+        print(" Listagem de Carros ".center(60, "-"))
+        cars = super().controller.cars
+        if cars is not None:
+            car_number = 1
+            for car in cars:
+                car_array = car.to_array()
+                print((" *** Carro "+str(car_number)+" *** ").center(60))
+                for key in car_array:
+                    string = (" | %s => %s | " % (key, car_array[key]))
+                    print(string.center(60))
+                car_number = car_number + 1
 
     def open_main_screen(self):
         super().open_main_screen()
+
+    def back_handler(self):
+        self.close_gui()
+        self.init_menu_components()
+        self.open_gui('menu')

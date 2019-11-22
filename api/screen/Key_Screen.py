@@ -127,7 +127,7 @@ class KeyScreen(GeneralScreen):
             event = self.__window.Read()
             values = [0]
             if(event[0] == 'INSERT_BUTTON'):
-                values[0] = -2
+                super().controller.open_main_screen()
             elif(event[0] == 'DELETE_BUTTON'):
                 values[0] = -3
             elif(event[0] == 'EDIT_BUTTON'):
@@ -135,16 +135,20 @@ class KeyScreen(GeneralScreen):
             elif(event[0] == 'LIST_BUTTON'):
                 values[0] = -5
             elif(event[0] == 'EXIT_BUTTON'):
-                values[0] = -1
+                super().controller.open_main_screen()
 
         elif(screen_type == 'insert'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             message = self.add(values[0])
             sg.Popup(message)
 
         elif(screen_type == 'delete'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             deleted = self.delete(values[0])
             sg.Popup(deleted)
@@ -153,6 +157,8 @@ class KeyScreen(GeneralScreen):
 
         elif(screen_type == 'edit'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             super().controller.edit_key(values)
 
@@ -161,15 +167,14 @@ class KeyScreen(GeneralScreen):
 
         elif(screen_type == 'list'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             self.init_menu_components()
             self.open_gui('menu')
 
         if(isinstance(values[0], int) and values[0] <= -1 and values[0] >= -5):
-            if(values[0] == -1):
-                sg.Popup('Você Fechou o Programa')
-                self.close_gui()
-            elif(values[0] == -2):
+            if(values[0] == -2):
                 self.init_insert_components()
             elif(values[0] == -3):
                 self.init_delete_components()
@@ -189,25 +194,29 @@ class KeyScreen(GeneralScreen):
         car_plate = input(" | Placa do Carro | ".center(60))
         return self.add(car_plate)
 
-    # def open_edit_menu(self):
-    #     print("Desculpe, mas essa Opcao nao esta disponivel para chaves".center(60, "-"))
-    #     super().open()
+    def open_edit_menu(self):
+        print("Desculpe, mas essa Opcao nao esta disponivel para chaves".center(60, "-"))
+        super().open()
 
-    # def open_delete_menu(self):
-    #     print("Deletar Chave". center(60, "-"))
-    #     car_plate = input(
-    #         " | Qual a placa do chave a qual a chave pertence? |".center(60))
-    #     return self.delete(car_plate)
+    def open_delete_menu(self):
+        print("Deletar Chave". center(60, "-"))
+        car_plate = input(
+            " | Qual a placa do chave a qual a chave pertence? |".center(60))
+        return self.delete(car_plate)
 
-    # def open_list_menu(self):
-    #     print(" Listagem de Chaves ".center(60, "-"))
-    #     keys = super().controller.keys
-    #     if keys is not None:
-    #         key_number = 1
-    #         for key in keys:
-    #             key_array = key.to_array()
-    #             print((" *** Requisicao " + str(key_number) + " *** ").center(60))
-    #             for KEY in key_array:
-    #                 string = (" | %s => %s | " % (KEY, key_array[KEY]))
-    #                 print(string.center(60))
-    #             key_number = key_number + 1
+    def open_list_menu(self):
+        print(" Listagem de Chaves ".center(60, "-"))
+        keys = super().controller.keys
+        if keys is not None:
+            key_number = 1
+            for key in keys:
+                key_array = key.to_array()
+                print((" *** Requisicao " + str(key_number) + " *** ").center(60))
+                for KEY in key_array:
+                    string = (" | %s => %s | " % (KEY, key_array[KEY]))
+                    print(string.center(60))
+                key_number = key_number + 1
+    def back_handler(self):
+        self.close_gui()
+        self.init_menu_components()
+        self.open_gui('menu')

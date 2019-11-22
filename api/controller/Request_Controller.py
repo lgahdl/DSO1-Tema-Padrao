@@ -128,7 +128,8 @@ class RequestController(GeneralController):
                 self.__requests[index] = request
 
     def open_main_screen(self):
-        self.__main_controller.open_main_screen()
+        self.__request_screen.close_gui()
+        self.__main_controller.open_main_screen(True)
 
     def open_request_screen(self):
         self.__request_screen.open()

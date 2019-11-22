@@ -92,4 +92,5 @@ class KeyController(GeneralController):
         self.__key_screen.open_gui('menu')
 
     def open_main_screen(self):
-        self.__main_controller.open_main_screen()
+        self.__key_screen.close_gui()
+        self.__main_controller.open_main_screen(True)

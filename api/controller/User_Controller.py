@@ -111,7 +111,8 @@ class UserController(GeneralController):
         self.__user_screen.open_gui('menu')
 
     def open_main_screen(self):
-        self.__main_controller.open_main_screen()
+        self.__user_screen.close_gui()
+        self.__main_controller.open_main_screen(True)
 
     def get_user_by_id(self, id_user):
         for user in self.__users:

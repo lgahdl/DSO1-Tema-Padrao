@@ -89,8 +89,11 @@ class MainController(GeneralController):
     def user(self, user):
         self.__user = user
 
-    def open_main_screen(self):
-        self.main_screen.open_gui('login')
+    def open_main_screen(self, is_logged=False):
+        if(is_logged):
+            self.main_screen.open_gui('menu')
+        else:
+            self.main_screen.open_gui('login')
 
     def open_user_controller(self):
         self.user_controller.open_user_screen()

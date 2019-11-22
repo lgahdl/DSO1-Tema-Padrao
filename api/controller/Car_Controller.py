@@ -135,4 +135,5 @@ class CarController(GeneralController):
         self.__car_screen.open_gui('menu')
 
     def open_main_screen(self):
-        self.__main_controller.open_main_screen()
+        self.__car_screen.close_gui()
+        self.__main_controller.open_main_screen(True)
