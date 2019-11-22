@@ -7,6 +7,9 @@ from api.screen.Key_Screen import KeyScreen
 # Controllers
 from ..controller.General_Controller import GeneralController
 
+#dao
+from api.data.Key_DAO import KeyDAO
+
 
 class KeyController(GeneralController):
     id_key = 1
@@ -15,6 +18,7 @@ class KeyController(GeneralController):
         super().__init__()
         self.__keys = keys
         self.__main_controller = main_controller
+        self.__key_dao = KeyDAO()
         self.create_screen()
 
     def create_screen(self):
@@ -36,7 +40,7 @@ class KeyController(GeneralController):
 
     @property
     def keys(self):
-        return self.__keys
+        return self.__key_dao.get_all()
 
     @property
     def key_screen(self):
@@ -62,7 +66,7 @@ class KeyController(GeneralController):
             if KEY.car.car_plate != car_plate:
                 car = self.__main_controller.car_controller.get_car_by_plate(car_plate)
                 new_key = Key(int(self.__keys.__len__()), car)
-                self.__keys.append(new_key)
+                self.__key_dao.add(new_key.id_key, new_key)
                 return 'Chave Cadastrada no Sistema'
             else:
                 return 'Este carro ja possui chave cadastrada'
@@ -71,7 +75,7 @@ class KeyController(GeneralController):
         keys = self.__keys
         for KEY in keys:
             if KEY.car.car_plate == car_plate:
-                self.__keys.remove(KEY)
+                self.__key_dao.remove(KEY.id_key)
                 return 'Chave Removida Com Sucesso'
         return 'Não Foi Possivel Remover a chave'
 

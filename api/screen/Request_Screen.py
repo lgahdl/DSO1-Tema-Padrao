@@ -22,29 +22,29 @@ class RequestScreen(GeneralScreen):
     def request_controller(self, request_controller):
         super().controller = request_controller
 
-    def open(self):
-        print(" Request Screen ".center(60, "-"))
-        print(" | Você Deseja:  | ".center(60))
-        print(" | Pedir uma chave [1]  | ".center(60))
-        print(" | Devolver uma chave [2]  | ".center(60))
-        print(" | Deletar uma das Requisicoes [3]  | ".center(60))
-        print(" | Listar as Requisicoes [4]  | ".center(60))
-        print(" | Voltar Para o Menu[5] | ".center(60))
-        while True:
-            option = int(
-                input("Digite o numero que corresponde ao que voce deseja fazer:".center(60)))
-            if(option == 1):
-                self.open_add_menu()
-            elif(option == 2):
-                self.open_return_key_screen()
-            elif(option == 3):
-                self.open_delete_menu()
-            elif(option == 4):
-                self.open_list_menu()
-            elif(option == 5):
-                super().controller.open_main_screen()
-            else:
-                print("Opcao Invalida!!!".center(60, "-"))
+    # def open(self):
+    #     print(" Request Screen ".center(60, "-"))
+    #     print(" | Você Deseja:  | ".center(60))
+    #     print(" | Pedir uma chave [1]  | ".center(60))
+    #     print(" | Devolver uma chave [2]  | ".center(60))
+    #     print(" | Deletar uma das Requisicoes [3]  | ".center(60))
+    #     print(" | Listar as Requisicoes [4]  | ".center(60))
+    #     print(" | Voltar Para o Menu[5] | ".center(60))
+    #     while True:
+    #         option = int(
+    #             input("Digite o numero que corresponde ao que voce deseja fazer:".center(60)))
+    #         if(option == 1):
+    #             self.open_add_menu()
+    #         elif(option == 2):
+    #             self.open_return_key_screen()
+    #         elif(option == 3):
+    #             self.open_delete_menu()
+    #         elif(option == 4):
+    #             self.open_list_menu()
+    #         elif(option == 5):
+    #             super().controller.open_main_screen()
+    #         else:
+    #             print("Opcao Invalida!!!".center(60, "-"))
 
     def init_menu_components(self):
         sg.ChangeLookAndFeel('Reddit')

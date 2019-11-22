@@ -31,7 +31,6 @@ class UserScreen(GeneralScreen):
         )
 
     def add_user_with_array(self, user_array):
-        print(user_array)
         super().controller.add_user_with_array(user_array)
         self.close_gui()
         self.init_menu_components()

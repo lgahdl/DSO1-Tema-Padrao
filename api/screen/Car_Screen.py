@@ -35,7 +35,6 @@ class CarScreen(GeneralScreen):
         )
 
     def add_car_with_array(self, car_array):
-        print(car_array)
         message = super().controller.add_car_with_array(car_array)
         sg.Popup(message)
         self.close_gui()

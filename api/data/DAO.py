@@ -17,21 +17,21 @@ class DAO(ABC):
     def __load(self):
         self.__cache = pickle.load(open(self.__data_source, 'rb'))
 
-    def add(self, key, model):
-        self.__cache[key] = model
+    def add(self, index, model):
+        self.__cache[index] = model
         self.__dump()
 
     @abstractmethod
-    def get(self, key):
+    def get(self, index):
         try:
-            return self.__cache[key]
+            return self.__cache[index]
         except KeyError:
             pass
 
     @abstractmethod
-    def remove(self, key):
+    def remove(self, index):
         try:
-            self.__cache.pop(key)
+            self.__cache.pop(index)
             self.__dump()
         except KeyError:
             pass

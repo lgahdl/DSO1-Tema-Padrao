@@ -32,7 +32,7 @@ class UserController(GeneralController):
 
     @property
     def users(self):
-        return self.__users
+        return self.__user_dao.get_all()
 
     def create_screen(self):
         self.__user_screen = UserScreen(self)
@@ -62,7 +62,7 @@ class UserController(GeneralController):
         user = User(id_user, user_name, user_birthday,
                     user_role, user_phone, cars)
         users = self.__users
-        if (users is None or users == []):
+        if users is None or users == [] or len(users) == 0:
             self.__users.append(user)
         else:
             for controller_user in users:

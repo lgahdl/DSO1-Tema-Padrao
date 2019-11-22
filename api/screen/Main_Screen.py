@@ -53,68 +53,71 @@ class MainScreen(GeneralScreen):
         self.open_gui('menu')
 
     def open_gui(self, screen_type: str):
-        if screen_type == 'login':
-            button, values = self.__window.Read()
-        else:
-            event = self.__window.Read()
-            values = [0]
-            if event[0] == 'USER_BUTTON':
-                values[0] = -2
-            elif event[0] == 'REQUEST_BUTTON':
-                values[0] = -3
-            elif event[0] == 'KEY_BUTTON':
-                values[0] = -4
-            elif event[0] == 'CAR_BUTTON':
-                values[0] = -5
-            elif event[0] == 'EXIT_BUTTON':
-                sg.Popup('Você Está saindo do programa')
-                self.close_gui()
-        if self.login(int(values[0])):
-            super().controller.id_user_logged = values[0]
-            self.run()
-        elif -1 >= values[0] >= -5:
-            if values[0] == -1:
-                sg.Popup('Você Fechou o Programa')
-            elif (values[0] == -2):
-                super().controller.open_user_controller()
-            elif (values[0] == -3):
-                super().controller.open_request_controller()
-            elif (values[0] == -4):
-                super().controller.open_key_controller()
-            elif (values[0] == -5):
-                super().controller.open_car_controller()
-        else:
-            sg.Popup('Matricula Invalida')
-            self.open_gui('login')
+        try:
+            if screen_type == 'login':
+                button, values = self.__window.Read()
+            else:
+                event = self.__window.Read()
+                values = [0]
+                if event[0] == 'USER_BUTTON':
+                    values[0] = -2
+                elif event[0] == 'REQUEST_BUTTON':
+                    values[0] = -3
+                elif event[0] == 'KEY_BUTTON':
+                    values[0] = -4
+                elif event[0] == 'CAR_BUTTON':
+                    values[0] = -5
+                elif event[0] == 'EXIT_BUTTON':
+                    sg.Popup('Você Está saindo do programa')
+                    self.close_gui()
+            if self.login(int(values[0])):
+                super().controller.id_user_logged = values[0]
+                self.run()
+            elif -1 >= values[0] >= -5:
+                if values[0] == -1:
+                    sg.Popup('Você Fechou o Programa')
+                elif (values[0] == -2):
+                    super().controller.open_user_controller()
+                elif (values[0] == -3):
+                    super().controller.open_request_controller()
+                elif (values[0] == -4):
+                    super().controller.open_key_controller()
+                elif (values[0] == -5):
+                    super().controller.open_car_controller()
+            else:
+                sg.Popup('Matricula Invalida')
+                self.open_gui('login')
+        except:
+            pass
 
     def close_gui(self):
         self.__window.Close()
 
     def run(self):
         self.init_menu_components()
-        print(" Menu Inicial ".center(60, "-"))
-        print(" | Você Deseja ir para a página de:  | ".center(60))
-        print(" | Usuarios[1]  | ".center(60))
-        print(" | Requisicoes [2]  | ".center(60))
-        print(" | Chaves [3]  | ".center(60))
-        print(" | Carros [4]  | ".center(60))
-        print(" |  | ".center(60))
-        print(" |  | ".center(60))
-        print(" | SAIR[-1] | ".center(60))
-        while True:
-            option = int(input(" Insira a opção desejada: ".center(60)))
-            if option == 1:
-                super().controller.open_user_controller()
-            elif option == 2:
-                super().controller.open_request_controller()
-            elif option == 3:
-                super().controller.open_key_controller()
-            elif option == 4:
-                super().controller.open_car_controller()
-            elif option == -1:
-                super().controller.exit()
-            else:
-                print("Opção Inválida".center(60, "-"))
+        # print(" Menu Inicial ".center(60, "-"))
+        # print(" | Você Deseja ir para a página de:  | ".center(60))
+        # print(" | Usuarios[1]  | ".center(60))
+        # print(" | Requisicoes [2]  | ".center(60))
+        # print(" | Chaves [3]  | ".center(60))
+        # print(" | Carros [4]  | ".center(60))
+        # print(" |  | ".center(60))
+        # print(" |  | ".center(60))
+        # print(" | SAIR[-1] | ".center(60))
+        # while True:
+        #     option = int(input(" Insira a opção desejada: ".center(60)))
+        #     if option == 1:
+        #         super().controller.open_user_controller()
+        #     elif option == 2:
+        #         super().controller.open_request_controller()
+        #     elif option == 3:
+        #         super().controller.open_key_controller()
+        #     elif option == 4:
+        #         super().controller.open_car_controller()
+        #     elif option == -1:
+        #         super().controller.exit()
+        #     else:
+        #         print("Opção Inválida".center(60, "-"))
 
     def login(self, id_user: int):
         return super().controller.get_user(id_user)

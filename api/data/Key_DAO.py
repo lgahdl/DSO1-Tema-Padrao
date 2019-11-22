@@ -1,15 +1,15 @@
 from api.data.DAO import DAO
-from api.model.Car import Car
+from api.model.Key import Key
 
 
-class CarDAO(DAO):
+class KeyDAO(DAO):
     def __init__(self):
-        super().__init__('cars.pkl')
+        super().__init__('keys.pkl')
 
-    def add(self, index, car: Car):
-        if (isinstance(car.id_car, int)) and (car is not None) \
-                and isinstance(car, Car) and (index == car.id_car):
-            super().add(index, car)
+    def add(self, index, key: Key):
+        if (isinstance(key.id_key, int)) and (key is not None) \
+                and isinstance(key, Key) and (index == key.id_key):
+            super().add(index, key)
 
     def get(self, index: int):
         if index is not None and isinstance(index, int):
