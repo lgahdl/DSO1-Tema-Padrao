@@ -104,10 +104,13 @@ class MainController(GeneralController):
     def open_car_controller(self):
         self.car_controller.open_car_screen()
 
-    def get_user(self, id_user: int):
-        self.__user = self.user_controller.get_user_by_id(id_user)
-        if self.__user:
+    def get_user(self, id_user: int, is_requiring_user=False):
+        self.user = self.user_controller.get_user_by_id(id_user)
+        if (self.__user and is_requiring_user is False):
             return True
+        elif(self.__user and is_requiring_user is True):
+            print('here')
+            return self.user
         else:
             return False
 

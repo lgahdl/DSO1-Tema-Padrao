@@ -133,19 +133,29 @@ class UserScreen(GeneralScreen):
 
         users = super().controller.users
         user_layout_array = []
+        index = 0
         for user in users:
             print(user.user_name)
             user_layout_array.append(
+                [sg.Text('Usuário nº', size=[15, 1]),
+                 sg.Text(index, size=[30, 1])])
+            user_layout_array.append(
                 [sg.Text('Matricula', size=[15, 1]),
                  sg.Text(user.id_user, size=[30, 1])])
-            user_layout_array.append([sg.Text('Nome', size=[15, 1]),
-                                      sg.Text(user.user_name, size=[30, 1])])
-            user_layout_array.append([sg.Text('Data de Nascimento', size=[15, 1]),
-                                      sg.Text(user.user_birthday, size=[30, 1])])
-            user_layout_array.append([sg.Text('Telefone', size=[15, 1]),
-                                      sg.Text(user.user_phone, size=[30, 1])])
-            user_layout_array.append([sg.Text('Cargo', size=[15, 1]),
-                                      sg.Text(user.user_role, size=[30, 1])])
+            user_layout_array.append(
+                [sg.Text('Nome', size=[15, 1]),
+                 sg.Text(user.user_name, size=[30, 1])])
+            user_layout_array.append(
+                [sg.Text('Data de Nascimento', size=[15, 1]),
+                 sg.Text(user.user_birthday, size=[30, 1])])
+            user_layout_array.append(
+                [sg.Text('Telefone', size=[15, 1]),
+                 sg.Text(user.user_phone, size=[30, 1])])
+            user_layout_array.append(
+                [sg.Text('Cargo', size=[15, 1]),
+                 sg.Text(user.user_role, size=[30, 1])])
+            user_layout_array.append([])
+            index += 1
         user_layout_array.append(
             [sg.OK()]
         )
@@ -196,7 +206,7 @@ class UserScreen(GeneralScreen):
             button, values = self.__window.Read()
             print(values)
             super().controller.edit_user(values)
-            
+
             self.init_menu_components()
             self.open_gui('menu')
 

@@ -76,11 +76,8 @@ class UserController(GeneralController):
         user_array: [] = [],
         cars: [] = []
     ) -> User:
-        print(user_array)
         user = User(user_array[0], user_array[1],
                     user_array[2], user_role_json[user_array[4]], user_array[3], cars)
-        print('here')
-        print(user)
         users = self.__users
         if users is None or users == []:
             self.__users.append(user)
@@ -89,13 +86,12 @@ class UserController(GeneralController):
                 if controller_user.id_user != user.id_user and \
                         controller_user.user_name != user.user_name:
                     self.__users.append(user)
-        print(user)
         return user
 
     def delete_user(self, id_user: int):
         users = self.__users
         for controller_user in users:
-            if controller_user._user == id_user:
+            if controller_user.id_user == id_user:
                 self.__users.remove(controller_user)
                 return True
 

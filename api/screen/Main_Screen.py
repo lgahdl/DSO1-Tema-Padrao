@@ -73,18 +73,13 @@ class MainScreen(GeneralScreen):
         elif(values[0]<=-1 and values[0]>=-5):
             if(values[0] == -1):
                 sg.Popup('Você Fechou o Programa')
-                self.close_gui()
             elif(values[0] == -2):
-                self.close_gui()
                 super().controller.open_user_controller()
             elif(values[0] == -3):
-                self.close_gui()
                 super().controller.open_request_controller()
             elif(values[0] == -4):
-                self.close_gui()
                 super().controller.open_key_controller()
             elif(values[0] == -5):
-                self.close_gui()
                 super().controller.open_car_controller()
         else:
             sg.Popup('Matricula Invalida')
@@ -94,7 +89,6 @@ class MainScreen(GeneralScreen):
         self.__window.Close()
 
     def run(self):
-        self.close_gui()
         self.init_menu_components()
         print(" Menu Inicial ".center(60, "-"))
         print(" | Você Deseja ir para a página de:  | ".center(60))
