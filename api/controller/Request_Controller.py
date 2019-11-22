@@ -33,13 +33,14 @@ class RequestController(GeneralController):
     def create_dependencies_by_list(self, dependencies_list: []):
         for encapsulated_request in dependencies_list:
             request = Request(
-               encapsulated_request['id_request'],
-               encapsulated_request['user'],
-               self.__main_controller.key_controller.get_key_by_car_plate(encapsulated_request['key_car_plate']),
-               encapsulated_request['created_date'],
-               encapsulated_request['devolution_date'],
-               encapsulated_request['accepted'],
-               encapsulated_request['reason']
+                encapsulated_request['id_request'],
+                self.main_controller.get_user(encapsulated_request['user'],True),
+                self.__main_controller.key_controller.get_key_by_car_plate(
+                    encapsulated_request['key_car_plate']),
+                encapsulated_request['created_date'],
+                encapsulated_request['devolution_date'],
+                encapsulated_request['accepted'],
+                encapsulated_request['reason']
             )
             self.__requests.append(request)
 
@@ -66,7 +67,8 @@ class RequestController(GeneralController):
     def add_request(self, car_plate: str):
         car = self.main_controller.car_controller.get_car_by_plate(car_plate)
         is_blocked = False
-        key = self.main_controller.key_controller.get_key_by_car_plate(car_plate)
+        key = self.main_controller.key_controller.get_key_by_car_plate(
+            car_plate)
         if (self.main_controller.user.user_denied_requests >= 3):
             is_blocked = True
         if (self.main_controller.user.check_car_permission(car) and not is_blocked):
@@ -83,13 +85,41 @@ class RequestController(GeneralController):
             self.request_screen.show_is_blocked_message()
         self.id_request += 1
 
+    def add_request_with_array(self, values):
+        user = self.main_controller.get_user(int(values[0]), True)
+        car = self.main_controller.car_controller.get_car_by_plate(
+            values[1])
+        is_blocked = False
+        key = self.main_controller.key_controller.get_key_by_car_plate(
+            values[1])
+        if (user.user_denied_requests >= 3):
+            is_blocked = True
+        if (user.check_car_permission(car) and not is_blocked):
+            print("Permissao Aceita")
+            self.__requests.append(
+                Request(self.id_request, user, key, Date.today(), None, True, ''))
+        elif (not is_blocked):
+            print('here')
+            user.user_denied_requests += 1
+            self.__requests.append(Request(self.id_request, user, key,
+                                           Date.today(), Date.today(), False,
+                                           'O Usuário não tem permissão para esse veículo'))
+            print("O Usuário não tem permissão para esse veiculo")
+        elif (is_blocked):
+            print('here is_blocked')
+            self.request_screen.show_is_blocked_message()
+        self.id_request += 1
+
     def open(self):
-        self.__request_screen.open()
+        self.__request_screen.open_gui('menu')
 
     def delete_request(self, id_request: int):
         for REQUEST in self.__requests:
             if (id_request == REQUEST.id_request):
                 self.__requests.remove(REQUEST)
+                return True
+            else:
+                return False
 
     def edit_request(self, request: Request, id_request: int):
         for REQUEST in self.__requests:
@@ -106,8 +136,9 @@ class RequestController(GeneralController):
     def return_key(self, request: Request):
         for REQUEST in self.__requests:
             if (request.id_request == REQUEST.id_request):
-                request.devolution_date = Date.today()
-                self.edit_request(request, request.id_request)
+                new_request = Request(request.id_request, request.user,
+                                      request.key, request.created_date, Date.today(), True, '')
+                self.edit_request(new_request, request.id_request)
             else:
                 return "ERROR 404 - Request not found"
 

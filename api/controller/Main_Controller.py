@@ -90,13 +90,13 @@ class MainController(GeneralController):
         self.__user = user
 
     def open_main_screen(self):
-        self.main_screen.open()
-
-    def open_request_controller(self):
-        self.request_controller.open()
+        self.main_screen.open_gui('login')
 
     def open_user_controller(self):
         self.user_controller.open_user_screen()
+
+    def open_request_controller(self):
+        self.request_controller.open()
 
     def open_key_controller(self):
         self.key_controller.open_key_screen()
@@ -104,10 +104,12 @@ class MainController(GeneralController):
     def open_car_controller(self):
         self.car_controller.open_car_screen()
 
-    def get_user(self, id_user: int):
-        self.__user = self.user_controller.get_user_by_id(id_user)
-        if self.__user:
+    def get_user(self, id_user: int, is_requiring_user=False):
+        self.user = self.user_controller.get_user_by_id(id_user)
+        if (self.__user and is_requiring_user is False):
             return True
+        elif(self.__user and is_requiring_user is True):
+            return self.user
         else:
             return False
 

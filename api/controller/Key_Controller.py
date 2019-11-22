@@ -59,26 +59,26 @@ class KeyController(GeneralController):
     def add_key(self, car_plate: str):
         keys = self.__keys
         for KEY in keys:
-            if KEY.car_plate != car_plate:
+            if KEY.car.car_plate != car_plate:
                 car = self.__main_controller.car_controller.get_car_by_plate(car_plate)
                 new_key = Key(int(self.__keys.__len__()), car)
                 self.__keys.append(new_key)
+                return 'Chave Cadastrada no Sistema'
             else:
-                print("Este carro ja possui chave cadastrada".center(60, "-"))
+                return 'Este carro ja possui chave cadastrada'
 
     def delete_key(self, car_plate: int):
         keys = self.__keys
         for KEY in keys:
             if KEY.car.car_plate == car_plate:
                 self.__keys.remove(KEY)
-                print("Chave Removida com sucesso".center(60))
-            else:
-                print("Nao Foi Possivel remover a chave".center(60))
+                return 'Chave Removida Com Sucesso'
+        return 'Não Foi Possivel Remover a chave'
 
     ##def edit_key(self, key: Key, id_key: int):
     ##    keys = self.__keys
     ##    for KEY in keys:
-    ##        if KEY.id == id_key:
+    ##        if KEY.id_key == id_key:
     ##            index = keys.index(KEY)
     ##            self.__keys[index] = key
 
@@ -89,7 +89,7 @@ class KeyController(GeneralController):
                 return KEY
 
     def open_key_screen(self):
-        self.__key_screen.open()
+        self.__key_screen.open_gui('menu')
 
     def open_main_screen(self):
         self.__main_controller.open_main_screen()

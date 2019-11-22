@@ -3,7 +3,7 @@ from ..model.General_Model import GeneralModel
 from ..model.Car import Car
 
 
-class User(GeneralModel):
+class User():
     permission_role = {
         0: 'Estagiário',
         1: 'Empregado',
@@ -18,7 +18,6 @@ class User(GeneralModel):
                  user_role: int,
                  user_phone: int,
                  cars: [] = []):
-        super().__init__()
         self.__id_user = id_user
         self.__user_name = user_name
         self.__user_birthday = user_birthday
@@ -34,7 +33,7 @@ class User(GeneralModel):
     """
 
     @property
-    def id(self):
+    def id_user(self):
         return self.__id_user
 
     @property
@@ -67,8 +66,8 @@ class User(GeneralModel):
     |--------------|
     """
 
-    @id.setter
-    def id(self, id_user: int):
+    @id_user.setter
+    def id_user(self, id_user: int):
         self.__id_user = id_user
 
 
@@ -98,7 +97,7 @@ class User(GeneralModel):
 
     def to_array(self):
         to_array = {
-            'Id': self.id,
+            'Id': self.id_user,
             'Nome': self.user_name,
             'Data de Nascimento': self.user_birthday,
             'Cargo': self.user_role,
