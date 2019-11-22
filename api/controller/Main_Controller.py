@@ -109,7 +109,6 @@ class MainController(GeneralController):
         if (self.__user and is_requiring_user is False):
             return True
         elif(self.__user and is_requiring_user is True):
-            print('here')
             return self.user
         else:
             return False
