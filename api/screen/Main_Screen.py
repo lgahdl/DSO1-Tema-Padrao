@@ -66,7 +66,8 @@ class MainScreen(GeneralScreen):
             elif(event[0] == 'CAR_BUTTON'):
                 values[0] = -5
             elif(event[0] == 'EXIT_BUTTON'):
-                values[0] = -1
+                sg.Popup('Você Está saindo do programa')
+                self.close_gui()
         if(self.login(int(values[0]))):
             super().controller.id_user_logged = values[0]
             self.run()

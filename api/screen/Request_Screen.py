@@ -73,7 +73,7 @@ class RequestScreen(GeneralScreen):
              sg.InputText('', size=[30, 1])],
             [sg.Text(
                 'Digite a Placa do carro que você deseja:', size=[20, 1]),
-            sg.InputText('XYZ9955', [30, 1])],
+             sg.InputText('XYZ9955', [30, 1])],
             [sg.Submit(), sg.Cancel()]
         ]
         self.__window = sg.Window('Adição de Requisições').Layout(layout)
@@ -121,19 +121,19 @@ class RequestScreen(GeneralScreen):
                 [sg.Text('ID', size=[15, 1]),
                  sg.Text(request.id_request, size=[30, 1])])
             request_layout_array.append([sg.Text('ID', size=[15, 1]),
-                                      sg.Text(request.id_request, size=[30, 1])])
+                                         sg.Text(request.id_request, size=[30, 1])])
             request_layout_array.append([sg.Text('Nome do usuário', size=[15, 1]),
-                                      sg.Text(request.user.user_name, size=[30, 1])])
+                                         sg.Text(request.user.user_name, size=[30, 1])])
             request_layout_array.append([sg.Text('Data da requisição', size=[15, 1]),
-                                      sg.Text(request.created_date, size=[30, 1])])
+                                         sg.Text(request.created_date, size=[30, 1])])
             request_layout_array.append([sg.Text('Data da Devolução', size=[15, 1]),
-                                      sg.Text(request.devolution_date, size=[30, 1])])
+                                         sg.Text(request.devolution_date, size=[30, 1])])
             request_layout_array.append([sg.Text('Placa do Carro', size=[15, 1]),
-                                      sg.Text(str(request.key.car.car_plate), size=[30, 1])])
+                                         sg.Text(str(request.key.car.car_plate), size=[30, 1])])
             request_layout_array.append([sg.Text('Foi aceita?', size=[15, 1]),
-                                      sg.Text(str(request.accepted), size=[30, 1])])
+                                         sg.Text(str(request.accepted), size=[30, 1])])
             request_layout_array.append([sg.Text('Razão da Negação(se negada)', size=[15, 1]),
-                                      sg.Text(str(request.reason), size=[30, 1])])
+                                         sg.Text(str(request.reason), size=[30, 1])])
         request_layout_array.append(
             [sg.OK()]
         )
@@ -159,14 +159,18 @@ class RequestScreen(GeneralScreen):
             elif(event[0] == 'LIST_BUTTON'):
                 values[0] = -5
             elif(event[0] == 'EXIT_BUTTON'):
-                values[0] = -1
+                super().controller.open_main_screen()
 
         elif(screen_type == 'insert'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             self.add_request_with_array(values)
 
         elif(screen_type == 'delete'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             deleted = self.delete(int(values[0]))
             print(deleted)
             if deleted:
@@ -182,6 +186,8 @@ class RequestScreen(GeneralScreen):
 
         elif(screen_type == 'edit'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             super().controller.edit_user(values)
 
             self.init_menu_components()
@@ -240,12 +246,12 @@ class RequestScreen(GeneralScreen):
         for key in user_array:
             string = (" | %s => %s | " % (key, user_array[key]))
             print(string.center(60))
-        car_plate = input("---Digite a placa do carro(formato: ZZZ9999) que você deseja requirir ou digite 'Voltar' para voltar para a tela anterior---".center(60))
+        car_plate = input(
+            "---Digite a placa do carro(formato: ZZZ9999) que você deseja requirir ou digite 'Voltar' para voltar para a tela anterior---".center(60))
         if (car_plate == "Voltar"):
             self.open()
         else:
             return self.add(car_plate)
-
 
     def open_delete_menu(self):
         print(" Remoção de Requisicao ".center(60, "-"))
@@ -263,7 +269,8 @@ class RequestScreen(GeneralScreen):
         for key in user_array:
             string = (" | %s => %s | " % (key, user_array[key]))
             print(string.center(60))
-        request = super().controller.get_unfinished_request_by_user(super().controller.main_controller.user)
+        request = super().controller.get_unfinished_request_by_user(
+            super().controller.main_controller.user)
         if(isinstance(request, Request)):
             super().controller.return_key(request)
             print("Chave Devolvida")
@@ -292,3 +299,8 @@ class RequestScreen(GeneralScreen):
     def open_edit_menu(self):
         print("Requisicoes não oferecem essa opção")
         self.open()
+
+    def back_handler(self):
+        self.close_gui()
+        self.init_menu_components()
+        self.open_gui('menu')

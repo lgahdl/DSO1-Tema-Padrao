@@ -76,7 +76,8 @@ class CarScreen(GeneralScreen):
                 'Digite os dados do Carro que você deseja adicionar:', size=[30, 1])],
             [sg.Text('Matricula', size=[15, 1]),
              sg.InputText('10', size=[30, 1])],
-            [sg.Text('Placa', size=[15, 1]), sg.InputText('POO9990', size=[30, 1])],
+            [sg.Text('Placa', size=[15, 1]),
+             sg.InputText('POO9990', size=[30, 1])],
             [sg.Text('Modelo', size=[15, 1]),
              sg.InputText('Monza', size=[30, 1])],
             [sg.Text('Marca', size=[15, 1]),
@@ -201,15 +202,19 @@ class CarScreen(GeneralScreen):
             elif(event[0] == 'LIST_BUTTON'):
                 values[0] = -5
             elif(event[0] == 'EXIT_BUTTON'):
-                values[0] = -1
+                super().controller.open_main_screen()
 
         elif(screen_type == 'insert'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             return self.add_car_with_array(values)
 
         elif(screen_type == 'delete'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             deleted = self.delete(int(values[0]))
             print(deleted)
@@ -224,6 +229,8 @@ class CarScreen(GeneralScreen):
 
         elif(screen_type == 'edit'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             super().controller.edit_car(values)
 
@@ -232,15 +239,14 @@ class CarScreen(GeneralScreen):
 
         elif(screen_type == 'list'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             self.init_menu_components()
             self.open_gui('menu')
 
         if(isinstance(values[0], int) and values[0] <= -1 and values[0] >= -5):
-            if(values[0] == -1):
-                sg.Popup('Você Fechou o Programa')
-                self.close_gui()
-            elif(values[0] == -2):
+            if(values[0] == -2):
                 self.init_insert_components()
             elif(values[0] == -3):
                 self.init_delete_components()
@@ -338,3 +344,8 @@ class CarScreen(GeneralScreen):
 
     def open_main_screen(self):
         super().open_main_screen()
+
+    def back_handler(self):
+        self.close_gui()
+        self.init_menu_components()
+        self.open_gui('menu')

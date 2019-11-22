@@ -47,6 +47,7 @@ class UserScreen(GeneralScreen):
         super().open()
 
     def init_menu_components(self):
+
         sg.ChangeLookAndFeel('Reddit')
 
         layout = [
@@ -62,7 +63,7 @@ class UserScreen(GeneralScreen):
         self.__window = sg.Window('Usuários').Layout(layout)
 
     def init_insert_components(self):
-
+  
         sg.ChangeLookAndFeel('Reddit')
 
         layout = [
@@ -86,7 +87,7 @@ class UserScreen(GeneralScreen):
         self.open_gui('insert')
 
     def init_delete_components(self):
-
+  
         sg.ChangeLookAndFeel('Reddit')
 
         layout = [
@@ -103,7 +104,7 @@ class UserScreen(GeneralScreen):
         self.open_gui('delete')
 
     def init_edit_components(self):
-
+  
         sg.ChangeLookAndFeel('Reddit')
 
         layout = [
@@ -130,7 +131,7 @@ class UserScreen(GeneralScreen):
         self.open_gui('edit')
 
     def init_list_components(self):
-
+  
         users = super().controller.users
         user_layout_array = []
         index = 0
@@ -182,10 +183,13 @@ class UserScreen(GeneralScreen):
             elif(event[0] == 'LIST_BUTTON'):
                 values[0] = -5
             elif(event[0] == 'EXIT_BUTTON'):
-                values[0] = -1
+                super().controller.open_main_screen()
 
         elif(screen_type == 'insert'):
             button, values = self.__window.Read()
+            print(button)
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             return self.add_user_with_array(values)
 
@@ -193,6 +197,8 @@ class UserScreen(GeneralScreen):
             button, values = self.__window.Read()
             print(values)
             deleted = self.delete(int(values[0]))
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             if deleted:
                 sg.Popup("Usuário Apagado do Sistema")
                 self.init_menu_components()
@@ -205,6 +211,8 @@ class UserScreen(GeneralScreen):
         elif(screen_type == 'edit'):
             button, values = self.__window.Read()
             print(values)
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             super().controller.edit_user(values)
 
             self.init_menu_components()
@@ -212,14 +220,15 @@ class UserScreen(GeneralScreen):
 
         elif(screen_type == 'list'):
             button, values = self.__window.Read()
+            if(button == 'Cancel' or button == None):
+                self.back_handler()
             print(values)
             self.init_menu_components()
             self.open_gui('menu')
 
         if(isinstance(values[0], int) and values[0] <= -1 and values[0] >= -5):
             if(values[0] == -1):
-                sg.Popup('Você Fechou o Programa')
-                self.close_gui()
+                super().controller.open_main_screen()
             elif(values[0] == -2):
                 self.init_insert_components()
             elif(values[0] == -3):
@@ -322,3 +331,8 @@ class UserScreen(GeneralScreen):
 
     def open_main_screen(self):
         super().open_main_screen()
+    
+    def back_handler(self):
+        self.close_gui()
+        self.init_menu_components()
+        self.open_gui('menu')
