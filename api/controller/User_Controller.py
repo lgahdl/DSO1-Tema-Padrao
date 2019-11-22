@@ -63,7 +63,7 @@ class UserController(GeneralController):
                     user_role, user_phone, cars)
         users = self.__users
         if users is None or users == [] or len(users) == 0:
-            self.__users.append(user)
+            self.__user_dao.add(user.id_user, user)
         else:
             for controller_user in users:
                 if controller_user.id_user != user.id_user and \
