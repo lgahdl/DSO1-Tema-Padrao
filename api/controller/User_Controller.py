@@ -97,7 +97,7 @@ class UserController(GeneralController):
 
     def edit_user(self, values):
         users = self.__users
-        user = self.get_user_by_id(values[0])
+        user = self.get_user_by_id(int(values[0]))
         user.user_name = values[1]
         user.user_birthday = values[2]
         user.user_phone = values[3]

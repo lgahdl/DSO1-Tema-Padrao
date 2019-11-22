@@ -107,7 +107,7 @@ class UserScreen(GeneralScreen):
         sg.ChangeLookAndFeel('Reddit')
 
         layout = [
-            [sg.Text('Tela de Adição de Usuário', size=[30, 1])],
+            [sg.Text('Tela de Edição de Usuário', size=[30, 1])],
             [sg.Text(
                 'Digite a matrícula do Usuário que você deseja editar:', size=[30, 1])],
             [sg.Text('Matricula(não pode ser editada)', size=[15, 1]),
