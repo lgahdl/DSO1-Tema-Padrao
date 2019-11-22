@@ -11,7 +11,11 @@ from api.screen.User_Screen import UserScreen
 # Controllers
 from api.controller.General_Controller import GeneralController
 
+# DAO
+from api.data.User_DAO import UserDAO
+
 user_role_json = {'Estagiário': 0, 'Empregado': 1, 'Gerente': 2, 'CEO': 3}
+
 
 class UserController(GeneralController):
   
@@ -22,6 +26,7 @@ class UserController(GeneralController):
             users = []
         self.__users = users
         self.__main_controller = main_controller
+        self.__user_dao = UserDAO()
         self.create_screen()
 
     """
@@ -68,7 +73,7 @@ class UserController(GeneralController):
             for controller_user in users:
                 if controller_user.id_user != user.id_user and \
                         controller_user.user_name != user.user_name:
-                    self.__users.append(user)
+                    self.__user_dao.add(user.id_user, user)
         return user
 
     def add_user_with_array(
@@ -85,7 +90,7 @@ class UserController(GeneralController):
             for controller_user in users:
                 if controller_user.id_user != user.id_user and \
                         controller_user.user_name != user.user_name:
-                    self.__users.append(user)
+                    self.__user_dao.add(user.id_user, user)
         return user
 
     def delete_user(self, id_user: int):
